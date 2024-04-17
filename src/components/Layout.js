@@ -21,12 +21,12 @@ function Layout({children}) {
         {
             name: 'Chats',
             path: '/doctor/chats',
-            icon: 'ri-login-box-line'
+            icon: 'ri-chat-1-fill'
         },
         {
             name: 'Video Call',
             path: '/video-call',
-            icon: 'ri-login-box-line'
+            icon: 'ri-video-chat-line'
         },
         {
             name: 'Appointments List',
@@ -36,7 +36,41 @@ function Layout({children}) {
         {
             name: 'Resources',
             path: '/resources',
-            icon: 'ri-user-line'
+            icon: 'ri-database-line'
+        },
+        // {
+        //     name: 'Add Doctor',
+        //     path: '/add-doctor',
+        //     icon: 'ri-login-box-line'
+        // },
+        
+    ];
+
+    const SeniordoctorMenu = [
+        {
+            name: 'Forum',
+            path: '/',
+            icon: 'ri-home-line'
+        },
+        {
+            name: 'Chats',
+            path: '/doctor/chats',
+            icon: 'ri-chat-1-fill'
+        },
+        {
+            name: 'Video Call',
+            path: '/video-call',
+            icon: 'ri-video-chat-line'
+        },
+        {
+            name: 'Appointments List',
+            path: '/doctor/appointments-list',
+            icon: 'ri-file-list-line'
+        },
+        {
+            name: 'Resources',
+            path: '/resources',
+            icon: 'ri-database-line'
         },
         
     ];
@@ -101,16 +135,15 @@ function Layout({children}) {
                         {collapsed ? <i className='ri-menu-2-fill header-action-icon' onClick={() => setCollapsed(false)}></i> : <i className='ri-close-fill header-action-icon' onClick={() => setCollapsed(true)}></i>}
                         
                         <div className='d-flex align-items-center px-4'>
-                            <Badge count={1} onClick={() => navigate('/notifications')}>
+                            <Badge count={0} onClick={() => navigate('/notifications')}>
                             {/* <Badge count = {user?.unseenNotifications.length} onClick={() => navigate('/notifications')}> */}
                                 <i className='ri-notification-line header-action-icon px-2'></i>
                             </Badge>
                             
                             {/* when if we create a user or doctor then we it will directly visible here */}
-                            <Link className='anchor mx-2' to='/doctor/profile'> Admin </Link> 
+                            <Link className='anchor mx-2' to='/doctor/profile'> Doctor</Link> 
 
-                            <i className='ri-logout-circle-line'></i>
-                                {!collapsed && <Link className = "anchor mx-2" to='/login'> Logout </Link>}
+                            <i className='ri-logout-circle-line' > <Link className = "anchor mx-2" to='/login'>Logout </Link> </i>
                         </div>
                     </div>
 
@@ -124,3 +157,4 @@ function Layout({children}) {
 }
 
 export default Layout
+

@@ -11,15 +11,15 @@ function DoctorsList() {
     const getUsersData = async() => {
         try{
             dispatch(showLoading())
-            const response = await axios.get('/api/admin/get-all-users', {}, {
-                headers: {
-                    'Authorization' : `Bearer ${localStorage.getItem('token')}`
-                }
-            })
+            // const response = await axios.get('/api/admin/get-all-users', {}, {
+            //     headers: {
+            //         'Authorization' : `Bearer ${localStorage.getItem('token')}`
+            //     }
+            // })
             dispatch(hideLoading())
-            if(response.data.success){
-                setDoctors(response.data.data)
-            }
+            // if(response.data.success){
+            //     setDoctors(response.data.data)
+            // }
         }catch(error){
             dispatch(hideLoading())
         }

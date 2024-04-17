@@ -1,0 +1,24 @@
+.chat-card {
+    margin-bottom: 10px;
+}
+
+.chat-box {
+    background-color: #FDD8C4; /* Skin color */
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    max-width: 300px; /* Set the maximum width */
+}
+
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.chat-info {
+    flex-grow: 1;
+}

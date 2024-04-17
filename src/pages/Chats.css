@@ -1,0 +1,43 @@
+
+.chat-container {
+    display: flex;
+    height: 100vh; 
+}
+
+
+.chat-list {
+    flex: 0 0 30%; 
+    max-width: 350px;
+    height: 80vh; 
+    overflow-y: auto;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+}
+
+
+.chat-card {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+
+.chat-details {
+    flex: 1;
+    padding: 10px; 
+}
+
+
+.chat-details-container {
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+.avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}

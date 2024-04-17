@@ -6,6 +6,7 @@
 .logo {
     color: white;
     font-weight: bold;
+    font-size: 35px;
 }
 
 .role {
@@ -19,7 +20,7 @@
     background-color: #005555;
     border-radius: 5px;
     box-shadow: 0 0 2px gray;
-    margin-right: 20px;
+    margin-right: 10px;
     min-height: 100%;
     padding: 10px;
     /* width: 350px; */
@@ -106,4 +107,9 @@
     .menu {
         padding: 0 5px;
     }
+}
+
+h2{
+    text-align: center;
+    /* background-color: yellow; */
 }
