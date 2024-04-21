@@ -20,9 +20,11 @@ function Login() {
 
             if (response.data && response.data.title==='Success') {
                 toast.success(response.data.message);
-                toast("Redirecting to home page");
-                console.log('Setting user details:',response.data.payload.role)
+                // toast("Redirecting to home page");
+                
                 AsyncStorage.setItem('User Details', response.data.payload)
+                AsyncStorage.setItem('Role', response.data.payload.role)
+                console.log('User role:',response.data.payload.role)
                 AsyncStorage.setItem("token", response.data.payload.token);
                 if(response.data.payload.role === 'ADMIN'){
                     navigate("/admin");
@@ -64,6 +66,9 @@ function Login() {
                     
                     {/* <Link to ='/signup' className='anchor mt-2'> CLICK HERE TO REGISTER</Link> */}
                     <Link to ='/ForgetPassword' className='anchor mt-2'> Forgot Password</Link>
+
+
+
                 </Form>
             </div>
         </div>
