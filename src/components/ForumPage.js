@@ -1,29 +1,43 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 import Layout from './Layout'
-// import ForumCard from '../../components/ForumCard'
+import { useParams } from 'react-router-dom'; // Import useParams hook to access URL parameters
+import './ForumCard.css'
 
-// IF THE POST IS THE USER, THEN THE OPTIONS SHOULD BE
-// 1. EDIT POST
-// 2. DELETE POST
-// 3. ADD COMMENT, LIKE
-// ELSE IF THE POST IS NOT THE USER, THEN THE OPTIONS SHOULD BE
-// 1. ADD COMMENT, LIKE
-// 2. 
-// IN YOUR POSTS, THE USER CAN SEE ALL THE POSTS THE USER HAS MADE. 
-// THEY CAN DELETE ALL THE POSTS IF THEY WANT(IN YOUR POST).
+function ForumPage({ post }) {
+//   const { postId } = useParams(); // Extract postId from URL parameters
+//   const [post, setPost] = useState(null);
 
-function ForumPage({post}){
+//   useEffect(() => {
+//     // Find the post with the matching postId
+//     console.log(posts)
+//     const foundPost = posts.find(post => post.id === postId);
+//     setPost(foundPost);
+//   }, [posts, postId]);
+
+    if (!post) {
+        return (
+            <Layout>
+                Loading ...
+            </Layout>
+        );
+    }
+
     return (
-        <div>
-            <h1> {post.name}</h1>
+        <Layout>
+            <button className='create-post'>Create Post</button>
             <hr />
             <h2>{post.text}</h2>
-            <p>{post.content}</p>
             <hr />
-            <p>Author: {post.author}</p>
-            <p>Posted on: {post.date}</p>
-        </div>
+            <p>{post.name}</p>
+            <hr />
+            <i className="ri-heart-line">
+                <span>{post.likes} Likes</span>
+            </i>
+            <i className="ri-chat-4-line">
+                <span className='comment'> Comments</span>
+            </i>
+        </Layout>
     );
-};
+}
 
 export default ForumPage;

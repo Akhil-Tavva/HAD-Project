@@ -105,10 +105,11 @@ label {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #005555;
 }
 
 .auth-form {
-    width: 400px;
+    width: 500px;
 }
 
 .auth .card-title {

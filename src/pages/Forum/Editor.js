@@ -21,6 +21,7 @@ export default function Editor({value,onChange}) {
             value={value}
             theme={'snow'}
             onChange={onChange}
+            placeholder={"Content"}
             modules={modules} />
         </div>
     );

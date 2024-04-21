@@ -1,6 +1,6 @@
 import React from 'react';
 
-function ChatDetails({ chat }) {
+function ChatDetails({ chat }) { 
     return (
         <div className="chat-details-container">
             <h2>{chat.name}</h2>

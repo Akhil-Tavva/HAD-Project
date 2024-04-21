@@ -5,11 +5,11 @@ import { Link, useNavigate} from 'react-router-dom'
 import { useDispatch} from 'react-redux'
 
 
-const ForumCard = ({ name, text, initialLikes, initialComments ,onClick }) => {
+const ForumCard = ({ id, name, content, initialLikes, onClick}) => {
     const [likes, setLikes] = useState(initialLikes);
     // const [comments, setComments] = useState(initialComments);
     const navigate = useNavigate()
-
+    // console.log(id)
     const handleLike = () => {
         setLikes(likes + 1);
     };
@@ -20,7 +20,7 @@ const ForumCard = ({ name, text, initialLikes, initialComments ,onClick }) => {
 
     const handleClick = () => {
         // Navigate to the desired route when clicking anywhere on the page
-        navigate('/forum-page');
+        navigate('/post/id');
     };
 
     useEffect(() => {
@@ -38,16 +38,19 @@ const ForumCard = ({ name, text, initialLikes, initialComments ,onClick }) => {
 
     return (
         // when clicking anywhere on this forum card it should navigate to ForumPage.js file
-        <div className="forum-card">
-            <Link to={'/post/id'} onClick={onClick}> <h2>{name}</h2> </Link> 
-            <p> {text} </p>
+        <div className="forum-card" onClick={onClick}>
+            <Link to={`/post/id`} > <h2> {content} </h2> </Link> 
+            {/* <h2> {content} </h2> */}
             <hr />
             <div className="actions">
                 <i class="ri-heart-line" onClick={handleLike}> 
                     <span>{likes} Likes</span> 
                 </i>
                 <i class="ri-chat-4-line"> 
-                    <span> Comments</span> 
+                    <span className='comment'> Comments</span> 
+                </i>
+                <i class="ri-flag-2-line">
+                    <span> Report </span>
                 </i>
             </div>
         </div>

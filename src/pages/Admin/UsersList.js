@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import { useDispatch} from 'react-redux'
-import Layout from '../../components/Layout'
+import AdminLayout from '../../components/AdminLayout'
 import {showLoading, hideLoading} from '../../redux/alertsSlice'
 import axios from 'axios'
 import {Table} from 'antd'
@@ -54,10 +54,10 @@ function UsersList() {
     }, [])
 
     return (
-        <Layout>
+        <AdminLayout>
             <h1 className='page-header'> Users List</h1>
             <Table columns={columns} dataSource={users}/>
-        </Layout>
+        </AdminLayout>
     )
 }
 

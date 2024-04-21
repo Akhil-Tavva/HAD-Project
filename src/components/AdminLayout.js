@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { Badge, Button } from 'antd'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-function Layout({ children }) {
+function AdminLayout({ children }) {
     const [collapsed, setCollapsed] = React.useState(false)
     const { user } = useSelector((state) => state.user)
     const navigate = useNavigate();
@@ -15,124 +15,33 @@ function Layout({ children }) {
     // const [role, setRole] = useState(null);
     // const [MenuRendering, setMenuRendering] = useState(null);
 
-    const doctorMenu = [
+    const adminMenu = [
         {
             name: 'Home',
-            path: '/',
+            path: '/admin',
             icon: 'ri-home-line'
         },
         {
-            name: 'Chats',
-            path: '/doctor/chats',
-            icon: 'ri-chat-1-fill'
-        },
-        // {
-        //     name: 'Video Call',
-        //     path: '/video-call',
-        //     icon: 'ri-video-chat-line'
-        // },
-        {
-            name: 'Appointments List',
-            path: '/doctor/appointments-list',
-            icon: 'ri-file-list-line'
+            name: 'Users',
+            path: '/admin/users-list',
+            icon: 'ri-user-line'
         },
         {
-            name: 'Resources',
-            path: '/doctor/resources',
-            icon: 'ri-database-line'
+            name: 'Doctors',
+            path: '/admin/doctors-list',
+            icon: 'ri-user-star-line'
         },
-        // {
-        //     name: 'Add Doctor',
-        //     path: '/add-doctor',
-        //     icon: 'ri-login-box-line'
-        // },
-
+        {
+            name: 'Profile',
+            path: '/admin/profile',
+            icon: 'ri-user-line'
+        },
+        {
+            name: 'Add Doctor',
+            path: '/admin/add-doctor',
+            icon: 'ri-login-box-line'
+        },
     ];
-
-    // const SeniordoctorMenu = [
-    //     {
-    //         name: 'Forum',
-    //         path: '/',
-    //         icon: 'ri-home-line'
-    //     },
-    //     {
-    //         name: 'Chats',
-    //         path: '/doctor/chats',
-    //         icon: 'ri-chat-1-fill'
-    //     },
-    //     {
-    //         name: 'Video Call',
-    //         path: '/video-call',
-    //         icon: 'ri-video-chat-line'
-    //     },
-    //     {
-    //         name: 'Appointments List',
-    //         path: '/doctor/appointments-list',
-    //         icon: 'ri-file-list-line'
-    //     },
-    //     {
-    //         name: 'Resources',
-    //         path: '/resources',
-    //         icon: 'ri-database-line'
-    //     },
-
-    // ];
-
-    // const adminMenu = [
-    //     {
-    //         name: 'Home',
-    //         path: '/',
-    //         icon: 'ri-home-line'
-    //     },
-    //     {
-    //         name: 'Users',
-    //         path: '/admin/users-list',
-    //         icon: 'ri-user-line'
-    //     },
-    //     {
-    //         name: 'Doctors',
-    //         path: '/admin/doctors-list',
-    //         icon: 'ri-user-star-line'
-    //     },
-    //     {
-    //         name: 'Profile',
-    //         path: '/admin/profile',
-    //         icon: 'ri-user-line'
-    //     },
-    //     {
-    //         name: 'Add Doctor',
-    //         path: '/add-doctor',
-    //         icon: 'ri-login-box-line'
-    //     },
-    // ];
-
-    // const moderatorMenu = [
-    //     {
-    //         name: 'Home',
-    //         path: '/',
-    //         icon: 'ri-home-line'
-    //     },
-    //     {
-    //         name: 'Users',
-    //         path: '/admin/users-list',
-    //         icon: 'ri-user-line'
-    //     },
-    //     {
-    //         name: 'Doctors',
-    //         path: '/admin/doctors-list',
-    //         icon: 'ri-user-star-line'
-    //     },
-    //     {
-    //         name: 'Profile',
-    //         path: '/admin/profile',
-    //         icon: 'ri-user-line'
-    //     },
-    //     {
-    //         name: 'Add Doctor',
-    //         path: '/add-doctor',
-    //         icon: 'ri-login-box-line'
-    //     },
-    // ];
 
     const handleLogout = async () => {
         console.log("1");
@@ -183,7 +92,7 @@ function Layout({ children }) {
     // }, [role, menuRendering])
     // setMenuRendering(adminMenu)
 
-    const DoctormenuRendering = doctorMenu
+    const AdminmenuRendering = adminMenu
 
     return (
         <div className='main p-2'>
@@ -194,20 +103,17 @@ function Layout({ children }) {
                         <h1 className='role'> Doctor </h1>
                     </div>
 
-                    {DoctormenuRendering ? (
-                        <div className='menu'>
-                            {DoctormenuRendering.map((menu, index) => {
-                                const isActive = location.pathname === menu.path;
-                                return (
-                                    <div key={index} className={`d-flex menu-item ${isActive && 'active-menu-item'}`}>
-                                        <i className={menu.icon}></i>
-                                        {!collapsed && <Link to={menu.path}>{menu.name}</Link>}
-                                    </div>
-                                );
-                            })}
-                        </div>
-                    ) : undefined}
-
+                    <div className='menu'>
+                        {AdminmenuRendering.map((menu, index) => {
+                            const isActive = location.pathname === menu.path;
+                            return (
+                                <div key={index} className={`d-flex menu-item ${isActive && 'active-menu-item'}`}>
+                                    <i className={menu.icon}></i>
+                                    {!collapsed && <Link to={menu.path}>{menu.name}</Link>}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
 
                 <div className='content'>
@@ -236,5 +142,5 @@ function Layout({ children }) {
     )
 }
 
-export default Layout
+export default AdminLayout
 

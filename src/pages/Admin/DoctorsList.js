@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import { useDispatch} from 'react-redux'
-import Layout from '../../components/Layout'
+import Layout from '../../components/AdminLayout'
 import {showLoading, hideLoading} from '../../redux/alertsSlice'
 import axios from 'axios'
 import {Table} from 'antd'

@@ -1,53 +1,69 @@
-import React, {useEffect} from 'react'
-// import axios from 'axios'
+import React, {useState, useEffect} from 'react'
+import axios from 'axios'
 import Layout from '../../components/Layout'
-import { useState } from 'react';
-import ForumCard from '../../components/ForumCard';
+import ForumCard from '../../components/ForumCard'; 
 import ForumPage from '../../components/ForumPage';
 import { Link } from 'react-router-dom';
-import '../../components/ForumCard.css'; // Import the CSS file
+import '../../components/ForumCard.css';
+// import { hideLoading, showLoading } from '../../redux/alertsSlice'
+import { useDispatch} from 'react-redux'
+import toast from 'react-hot-toast'
 
 
-function Forum() {
+function Forum({forumId}) {
     const [posts, setPosts] = useState([]);
     const [selectedPost, setSelectedPost] = useState(null);
-
+    const dispatch = useDispatch()
     const handlePostSelect = (post) => {
         setSelectedPost(post);
     };
+
     const addPost = newPost => {
         setPosts([...posts, { ...newPost, id: posts.length + 1 }]);
     };
+    
+    const getData = async()=> {
+        try{
+            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+            const response = await axios.get('http://localhost:8081/forum/')
+            console.log(response.data)
+            setPosts(response.data.payload)
+            console.log(posts)
+        } catch (error) {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                console.error('Server responded with status:', error.response.status);
+                console.error('Response data:', error.response.data);
+                toast.error('Server Error: ' + error.response.data.message);
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.error('No response received:', error.request);
+                toast.error('No response from server');
+            } else {
+                // Something else happened while setting up the request
+                console.error('Error setting up request:', error.message);
+                toast.error('Error setting up request');
+            }
+        }
+    }
 
-    // const getData = async()=> {
-    //     try{
-    //         const response = await axios.post('/api/user/get-user-info-by-id', {}, {
-    //             headers:{
-    //                 Authorization: 'Bearer' + localStorage.getItem('token'),
-    //             }
-    //         })
-            
-    //     } catch(error) {
-            
-    //     }
-    // }
+    useEffect(() => {
+        getData()
+    },[])
 
+    // ADD CATEGORIES
     const postData = [
-        { id: 1, name: "John Doe", text: "Hey, how are you?",like: 0 },
-        { id: 2, name: "Jane Smith", text: "Hi there!",like: 1 },
-        { id: 3, name: "Michael Johnson", text: "How's it going?",like: 1 },
-        { id: 4, name: "Emily Davis", text: "Nice to meet you!",like: 1 },
-        { id: 5, name: "David Brown", text: "What's up?",like: 1 },
-        { id: 6, name: "Sarah Wilson", text: "Good day!",like: 1 },
-        { id: 7, name: "James Lee", text: "Bye!",like: 1 },
-        { id: 8, name: "Olivia Martinez", text: "Pleased to meet you.",like: 1 },
-        { id: 9, name: "Robert Anderson", text: "How are you doing?",like: 1 },
-        { id: 10, name: "Emma Taylor", text: "Nice weather we're having.",like: 1 }
+        { id: 1, content: "Hey, how are you?",like: 0 },
+        { id: 2, content: "Hi there!",like: 1 },
+        { id: 3, content: "How's it going?",like: 1 },
+        { id: 4, content: "Nice to meet you!",like: 1 },
+        { id: 5, content: "What's up?",like: 1 },
+        { id: 6, content: "Good day!",like: 1 },
+        { id: 7, content: "Bye!",like: 1 },
+        { id: 8, content: "Pleased to meet you.",like: 1 },
+        { id: 9, content: "How are you doing?",like: 1 },
+        { id: 10, content: "Nice weather we're having.",like: 1 }
     ];
-
-    // useEffect(() => {
-    //     getData()
-    // },[])
 
     return (
         <Layout>
@@ -55,25 +71,23 @@ function Forum() {
                 <Link to="/newpost" addPost={addPost} >
                     <button className='create-post'>Create Post</button>
                 </Link>
-                <Link to="/yourposts" addPost={addPost} >
+                <Link to="/yourposts" >
                     <button className='create-post'>Your Posts</button>
                 </Link>
                 <hr />
-
                 <div className="post-list">
                     {postData.map(post => (
-                            <ForumCard
-                                key={post.id}
-                                name={post.name}
-                                text={post.text}
-                                initialLikes={post.like}
-                                // initialComments={post.initialComments}
-                                onClick={() => handlePostSelect(post)}
-                            />
-                        ))}
+                        <ForumCard
+                            key={post.id}
+                            name={post.name}
+                            content={post.content}
+                            initialLikes={post.like}
+                            onClick={() => handlePostSelect(post)}
+                        />
+                    ))}
                 </div>
                 {/* DOUBT */}
-                <div className='chat-details'>
+                <div>
                     {selectedPost && <ForumPage post={selectedPost} />}
                 </div>
             </div>
@@ -83,19 +97,13 @@ function Forum() {
 
 export default Forum
 
-// import React from 'react';
+// IF THE POST IS THE USER, THEN THE OPTIONS SHOULD BE
+// 1. EDIT POST
+// 2. DELETE POST
+// 3. ADD COMMENT, LIKE
+// ELSE IF THE POST IS NOT THE USER, THEN THE OPTIONS SHOULD BE
+// 1. ADD COMMENT, LIKE
+// 2. 
+// IN YOUR POSTS, THE USER CAN SEE ALL THE POSTS THE USER HAS MADE. 
+// THEY CAN DELETE ALL THE POSTS IF THEY WANT(IN YOUR POST).
 
-// const ForumList = ({ posts }) => {
-//     return (
-//         <div>
-//             <h1> Forum List</h1>
-//             <ul>
-//                 {posts.map(post => (
-//                     <li key={post.id}>{post.title}</li>
-//                 ))}
-//             </ul>
-//         </div>
-//     );
-// };
-
-// export default ForumList;
