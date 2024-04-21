@@ -20,7 +20,8 @@ import ForumPage from "./components/ForumPage";
 import AddDoctor from "./pages/Admin/AddDoctor";
 import YourPosts from "./pages/Forum/YourPosts";
 import AdminLayout from "./components/AdminLayout";
-
+import ForgetPassword from "./pages/ForgetPassword";
+import UpdatePassword from "./pages/UpdatePassword";
 function App() {
   const {loading} = useSelector(state => state.alerts); // change intial state loading as true in alertsSlice.js file to get spinner
   return (
@@ -37,7 +38,8 @@ function App() {
       
       <Routes>
         <Route path="/login" element={<Login />}/>
-        <Route path="/signup" element={<PublicRoute> <Signup /> </PublicRoute>}/>
+        <Route path="/ForgetPassword" element={<PublicRoute> <ForgetPassword /> </PublicRoute>}/>
+        <Route path="/UpdatePassword" element={<PublicRoute> <UpdatePassword /> </PublicRoute>}/>
         {/* <Route path="/" element={<ProtectedRoute>  <Home /> </ProtectedRoute>}/> */}
         <Route path="/" element={<Home/>}/>
         <Route path="/admin" element={<AdminLayout />} />
@@ -53,8 +55,6 @@ function App() {
         <Route path="/post/id" element={<ForumPage />}/>
         <Route path="/admin/add-doctor" element={<AddDoctor />}/>
         <Route path="/yourposts" element={<YourPosts />}/>
-        
-        
       </Routes>
     </BrowserRouter>
   );

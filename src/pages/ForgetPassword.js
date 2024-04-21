@@ -37,24 +37,18 @@ function Login() {
             toast.error("Something went wrong");
         }
     };
-
+    function handleupdate(){
+        navigate("/UpdatePassword");
+    }
     return (
         <div className='auth'>
             <div className='auth-form card p-3'>
-                <h1 className='card-title'>WELCOME</h1>
+                <h1 className='card-title'>ForgetPassword</h1>
                 <Form layout='vertical' onFinish={onFinish}>
                     <Form.Item label='Email' name='email'>
                         <Input placeholder='Email'/>
                     </Form.Item>
-
-                    <Form.Item label='Password' name='password'>
-                        <Input.Password placeholder='Password' type='password'/>
-                    </Form.Item>
-                    
-                    <Button className='primary-button my-2' htmlType='submit'> Submit </Button>
-                    
-                    {/* <Link to ='/signup' className='anchor mt-2'> CLICK HERE TO REGISTER</Link> */}
-                    <Link to ='/ForgetPassword' className='anchor mt-2'> Forgot Password</Link>
+                    <Button className='primary-button my-2' htmlType='submit' onClick={handleupdate}> Send Otp </Button>
                 </Form>
             </div>
         </div>

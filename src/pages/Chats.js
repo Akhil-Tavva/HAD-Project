@@ -1,44 +1,84 @@
 import React, { useState } from 'react';
 import Layout from '../components/Layout';
-import ChatCard from '../components/ChatCard';
-import ChatDetails from '../components/ChatDetails';
 import './Chats.css';
 
 function Chats() {
     const [selectedChat, setSelectedChat] = useState(null);
 
+    const chatData = [
+        { 
+            id: 1, 
+            name: "Dharmin", 
+            messages: [
+                { id: 1, text: "Hey, how are you?", sender: "You" },
+                { id: 2, text: "I'm fine, thanks!", sender: "Dharmin" }
+            ] 
+        },
+        { 
+            id: 2, 
+            name: "Netra", 
+            messages: [
+                { id: 3, text: "Hi there!", sender: "Netra" },
+                { id: 4, text: "Hello!", sender: "You" }
+            ] 
+        },
+        { 
+            id: 3, 
+            name: "Rudransh", 
+            messages: [
+                { id: 5, text: "How's it going?", sender: "You" },
+                { id: 6, text: "Pretty good, and you?", sender: "Rudransh" }
+            ] 
+        },
+        { 
+            id: 4, 
+            name: "Akhi", 
+            messages: [
+                { id: 7, text: "Nice to meet you!", sender: "Akhi" },
+                { id: 8, text: "Likewise!", sender: "You" },
+                { id: 9, text: "How have you been?", sender: "You" },
+                { id: 10, text: "I've been good, thanks!", sender: "Akhi" }
+            ] 
+        },
+        { 
+            id: 5, 
+            name: "Vaibhav", 
+            messages: [
+                { id: 11, text: "What's up?", sender: "Vaibhav" },
+                { id: 12, text: "Not much, just chilling.", sender: "You" },
+                { id: 13, text: "Want to catch up later?", sender: "You" },
+                { id: 14, text: "Sure, I'd love to!", sender: "Vaibhav" }
+            ] 
+        },
+        // Add more chat data as needed
+    ];
+
     const handleChatSelect = (chat) => {
         setSelectedChat(chat);
     };
-
-    const chatData = [
-        { id: 1, name: "John Doe", text: "Hey, how are you?" },
-        { id: 2, name: "Jane Smith", text: "Hi there!" },
-        { id: 3, name: "Michael Johnson", text: "How's it going?" },
-        { id: 4, name: "Emily Davis", text: "Nice to meet you!" },
-        { id: 5, name: "David Brown", text: "What's up?" },
-        { id: 6, name: "Sarah Wilson", text: "Good day!" },
-        { id: 7, name: "James Lee", text: "Bye!" },
-        { id: 8, name: "Olivia Martinez", text: "Pleased to meet you." },
-        { id: 9, name: "Robert Anderson", text: "How are you doing?" },
-        { id: 10, name: "Emma Taylor", text: "Nice weather we're having." }
-    ];
 
     return (
         <Layout>
             <div className="chat-container">
                 <div className="chat-list">
                     {chatData.map(chat => (
-                        <ChatCard
-                            key={chat.id}
-                            name={chat.name}
-                            text={chat.text}
-                            onClick={() => handleChatSelect(chat)}
-                        />
+                        <div key={chat.id} className="chat-card" onClick={() => handleChatSelect(chat)}>
+                            <p>{chat.name}</p>
+                        </div>
                     ))}
                 </div>
                 <div className="chat-details">
-                    {selectedChat && <ChatDetails chat={selectedChat} />}
+                    {selectedChat && (
+                        <div>
+                            {selectedChat.messages.map((message) => (
+                                <div key={message.id} className="message-container">
+                                    <div className={message.sender === "You" ? "sender" : "receiver"}>
+                                        <p>{message.text}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </Layout>
