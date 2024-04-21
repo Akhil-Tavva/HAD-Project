@@ -27,6 +27,15 @@ function Login() {
                 if(response.data.payload.role === 'ADMIN'){
                     navigate("/admin");
                 }
+                else if(response.data.payload.role === 'MODERATOR'){
+                    navigate("/moderator");
+                }
+                else if(response.data.payload.role === 'SENIOR_DOCTOR'){
+                    navigate("/sr-doctor");
+                }
+                else{
+                    navigate("/doctor");
+                }
             } 
             else {
                 console.log('Response data error:', response.data);

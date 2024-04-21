@@ -15,45 +15,6 @@ function Layout({ children }) {
     // const [role, setRole] = useState(null);
     // const [MenuRendering, setMenuRendering] = useState(null);
 
-    const doctorMenu = [
-        {
-            name: 'Home',
-            path: '/doctor',
-            icon: 'ri-home-line'
-        },
-        {
-            name: 'Chats',
-            path: '/doctor/chats',
-            icon: 'ri-chat-1-fill'
-        },
-        // {
-        //     name: 'Video Call',
-        //     path: '/video-call',
-        //     icon: 'ri-video-chat-line'
-        // },
-        {
-            name: 'Appointments List',
-            path: '/doctor/appointments-list',
-            icon: 'ri-file-list-line'
-        },
-        {
-            name: 'Profile',
-            path: '/doctor/profile',
-            icon: 'ri-user-line'
-        },
-        {
-            name: 'Resources',
-            path: '/doctor/resources',
-            icon: 'ri-database-line'
-        },
-        // {
-        //     name: 'Add Doctor',
-        //     path: '/add-doctor',
-        //     icon: 'ri-login-box-line'
-        // },
-
-    ];
-
     // const SeniordoctorMenu = [
     //     {
     //         name: 'Forum',
@@ -111,33 +72,33 @@ function Layout({ children }) {
     //     },
     // ];
 
-    // const moderatorMenu = [
-    //     {
-    //         name: 'Home',
-    //         path: '/',
-    //         icon: 'ri-home-line'
-    //     },
-    //     {
-    //         name: 'Users',
-    //         path: '/admin/users-list',
-    //         icon: 'ri-user-line'
-    //     },
-    //     {
-    //         name: 'Doctors',
-    //         path: '/admin/doctors-list',
-    //         icon: 'ri-user-star-line'
-    //     },
-    //     {
-    //         name: 'Profile',
-    //         path: '/admin/profile',
-    //         icon: 'ri-user-line'
-    //     },
-    //     {
-    //         name: 'Add Doctor',
-    //         path: '/add-doctor',
-    //         icon: 'ri-login-box-line'
-    //     },
-    // ];
+    const moderatorMenu = [
+        {
+            name: 'Home',
+            path: '/moderator',
+            icon: 'ri-home-line'
+        },
+        {
+            name: 'Users',
+            path: '/moderator/users-list',
+            icon: 'ri-user-line'
+        },
+        {
+            name: 'Doctors',
+            path: '/moderator/doctors-list',
+            icon: 'ri-user-star-line'
+        },
+        {
+            name: 'Profile',
+            path: '/admin/profile',
+            icon: 'ri-user-line'
+        },
+        {
+            name: 'Add Doctor',
+            path: '/moderator/add-doctor',
+            icon: 'ri-login-box-line'
+        },
+    ];
 
     const handleLogout = async () => {
         console.log("1");
@@ -188,7 +149,7 @@ function Layout({ children }) {
     // }, [role, menuRendering])
     // setMenuRendering(adminMenu)
 
-    const DoctormenuRendering = doctorMenu
+    const ModeratormenuRendering = moderatorMenu
 
     return (
         <div className='main p-2'>
@@ -196,12 +157,12 @@ function Layout({ children }) {
                 <div className='sidebar'>
                     <div className='sidebar-header'>
                         {!collapsed ? <h1 className='logo'>EMPATHEASE</h1> : <h1 className='logo'>EE</h1>}
-                        <h1 className='role'> Doctor </h1>
+                        <h1 className='role'> Moderator </h1>
                     </div>
 
-                    {DoctormenuRendering ? (
+                    {ModeratormenuRendering ? (
                         <div className='menu'>
-                            {DoctormenuRendering.map((menu, index) => {
+                            {ModeratormenuRendering.map((menu, index) => {
                                 const isActive = location.pathname === menu.path;
                                 return (
                                     <div key={index} className={`d-flex menu-item ${isActive && 'active-menu-item'}`}>
@@ -226,7 +187,7 @@ function Layout({ children }) {
                             </Badge>
 
                             {/* when if we create a user or doctor then we it will directly visible here */}
-                            <Link className='anchor mx-2' to='/doctor/profile'> Doctor</Link>
+                            <Link className='anchor mx-2' to='/doctor/profile'> Moderator</Link>
 
                             <Button className="anchor mx-2" onClick={handleLogout}>Logout </Button>
                         </div>

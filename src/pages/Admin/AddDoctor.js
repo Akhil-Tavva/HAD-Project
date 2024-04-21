@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Button} from 'antd';
 // import 'antd/dist/antd.css';
 import Layout from '../../components/AdminLayout'
-import './AddDoctor.css'; // Import Bootstrap CSS file
+import './AddDoctor.css';
 
 const AddDoctor = () => {
   const [form] = Form.useForm();

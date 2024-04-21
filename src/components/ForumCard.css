@@ -114,6 +114,7 @@ body {
     margin: 20px;
     padding: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* cursor: pointer; */
 }
 
 .group-avatar {
@@ -145,3 +146,9 @@ body {
     font-size: 14px;
     color: #666;
 }
+
+.link-no-outline:focus {
+    outline: none;
+    text-decoration: none;
+}
+

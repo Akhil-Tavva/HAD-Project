@@ -35,25 +35,28 @@ function App() {
       )}
 
       <Toaster position="top-center" reverseOrder={false}/>
-      
       <Routes>
-        <Route path="/login" element={<Login />}/>
-        <Route path="/ForgetPassword" element={<PublicRoute> <ForgetPassword /> </PublicRoute>}/>
-        <Route path="/UpdatePassword" element={<PublicRoute> <UpdatePassword /> </PublicRoute>}/>
-        {/* <Route path="/" element={<ProtectedRoute>  <Home /> </ProtectedRoute>}/> */}
-        <Route path="/" element={<Home/>}/>
-        <Route path="/admin" element={<AdminLayout />} />
+        <Route path="/" element={<Login />}/>
+        <Route path="/signup" element={<PublicRoute> <Signup /> </PublicRoute>}/>
+        <Route path="/doctor" element={<Home/>}/>
+        <Route path="/admin" element={<AdminHome />} />
+        <Route path="/moderator" element={<ModeratorHome />}/>
         <Route path="/forum" element={<Forum/>}/>
+        {/* <Route path="/admin/forum" element={<Forum/>}/> */}
         {/* <Route path="/app" element={<ProtectedRoute> <Notifications /> </ProtectedRoute>}/> */}
         <Route path="/notifications" element={<Notifications />}/>
         <Route path="/doctor/profile" element={<Profile />}/>
         <Route path="/doctor/appointments-list" element={<Appointments />}/>
         <Route path="/admin/doctors-list" element={<DoctorsList />}/>
         <Route path="/admin/users-list" element={<UsersList />}/>
+        <Route path="/admin/add-doctor" element={<AddDoctor />}/>
+        <Route path="/moderator/doctors-list" element={<DoctorsList />}/>
+        <Route path="/moderator/users-list" element={<UsersList />}/>
+        <Route path="/moderator/add-doctor" element={<AddDoctor />}/>
         <Route path="/doctor/chats" element={<Chats />}/>
+        {/* <Route path="/admin/chats" element={<Chats />}/> */}
         <Route path="/newpost" element={<CreatePost />}/>
         <Route path="/post/id" element={<ForumPage />}/>
-        <Route path="/admin/add-doctor" element={<AddDoctor />}/>
         <Route path="/yourposts" element={<YourPosts />}/>
       </Routes>
     </BrowserRouter>
@@ -61,3 +64,6 @@ function App() {
 }
 
 export default App;
+
+// <Route path="/ForgetPassword" element={<PublicRoute> <ForgetPassword /> </PublicRoute>}/>
+//         <Route path="/UpdatePassword" element={<PublicRoute> <UpdatePassword /> </PublicRoute>}/>

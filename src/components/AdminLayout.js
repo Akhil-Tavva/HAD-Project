@@ -21,6 +21,11 @@ function AdminLayout({ children }) {
             path: '/admin',
             icon: 'ri-home-line'
         },
+        // {
+        //     name: 'Chats',
+        //     path: '/admin/chats',
+        //     icon: 'ri-chat-1-fill'
+        // },
         {
             name: 'Users',
             path: '/admin/users-list',
@@ -31,11 +36,11 @@ function AdminLayout({ children }) {
             path: '/admin/doctors-list',
             icon: 'ri-user-star-line'
         },
-        {
-            name: 'Profile',
-            path: '/admin/profile',
-            icon: 'ri-user-line'
-        },
+        // {
+        //     name: 'Profile',
+        //     path: '/admin/profile',
+        //     icon: 'ri-user-line'
+        // },
         {
             name: 'Add Doctor',
             path: '/admin/add-doctor',
@@ -48,49 +53,8 @@ function AdminLayout({ children }) {
         // await AsyncStorage.removeItem('token')
         await AsyncStorage.clear();
         console.log("2");
-        navigate('/login')
+        navigate('/')
     }
-
-    // const menuRendering = user?.isAdmin ? adminMenu : doctorMenu; // change here 
-    // const Userdetails = AsyncStorage.getItem('User Details')
-    // console.log('Getting user details:',Userdetails)
-    // async function someFunction() {
-    //     await Userdetails.then((res) => setRole(res)); // Assuming promiseObject is your Promise
-    // }
-    // someFunction()
-
-    // CHANGE THIS IN LOGIN FILE TO MAKE IT EASY
-    // useEffect(() => {
-    //     // console.log(role);
-    //     // if (role !== null && menuRendering === null) {
-    //     //     switch (role) {
-    //     //         case 'ADMIN':
-    //     //             setMenuRendering(doctorMenu) // TEMP SETTING MENU RENDERING AS DOCTOR
-    //     //             break
-    //     //         case 'MODERATOR':
-    //     //             setMenuRendering(moderatorMenu)
-    //     //             break
-    //     //         case 'SENIOR_DOCTOR':
-    //     //             setMenuRendering(SeniordoctorMenu)
-    //     //             break
-    //     //         default:
-    //     //             setMenuRendering(doctorMenu)
-    //     //     }
-    //         // if(role === 'ADMIN'){
-    //         //     setMenuRendering(doctorMenu)
-    //         // }
-    //         // else if(role === 'MODERATOR'){
-    //         //     setMenuRendering(moderatorMenu)
-    //         // }
-    //         // else if(role === 'SENIOR_DOCTOR'){
-    //         //     setMenuRendering(SeniordoctorMenu)
-    //         // }
-    //         // else{
-    //         //     setMenuRendering(doctorMenu)
-    //         // }
-    //         // setMenuRendering(adminMenu)
-    // }, [role, menuRendering])
-    // setMenuRendering(adminMenu)
 
     const AdminmenuRendering = adminMenu
 
@@ -100,7 +64,7 @@ function AdminLayout({ children }) {
                 <div className='sidebar'>
                     <div className='sidebar-header'>
                         {!collapsed ? <h1 className='logo'>EMPATHEASE</h1> : <h1 className='logo'>EE</h1>}
-                        <h1 className='role'> Doctor </h1>
+                        <h1 className='role'> Admin </h1>
                     </div>
 
                     <div className='menu'>
@@ -127,12 +91,10 @@ function AdminLayout({ children }) {
                             </Badge>
 
                             {/* when if we create a user or doctor then we it will directly visible here */}
-                            <Link className='anchor mx-2' to='/doctor/profile'> Doctor</Link>
-
+                            <Link className='anchor mx-2' to='/doctor/profile'> Admin</Link>
                             <Button className="anchor mx-2" onClick={handleLogout}>Logout </Button>
                         </div>
                     </div>
-
                     <div className='body'>
                         {children}
                     </div>
