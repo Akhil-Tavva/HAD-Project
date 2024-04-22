@@ -10,7 +10,7 @@ import toast from 'react-hot-toast'
 
 
 
-const CreatePost = ({ addPost }) => {
+const CreateForum = ({ addPost }) => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [forumName, setforumName] = useState('');
@@ -49,7 +49,7 @@ const CreatePost = ({ addPost }) => {
 
     return (
         <Layout>
-            <h1 className='new-post'>Create New Post</h1>
+            <h1 className='new-post'>Create New Forum</h1>
             <form onSubmit={createPost}>
                 <input type="forumName" 
                         placeholder={"Forum Name"} 
@@ -68,4 +68,4 @@ const CreatePost = ({ addPost }) => {
     );
 };
 
-export default CreatePost;
+export default CreateForum;

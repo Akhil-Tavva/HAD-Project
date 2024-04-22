@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react' 
 import { useDispatch } from 'react-redux'
 import ModeratorLayout from '../../components/ModeratorLayout'
 import { showLoading, hideLoading } from '../../redux/alertsSlice'
 import axios from 'axios'
-import { Table } from 'antd'
+import { Table,Button } from 'antd'
 import toast from 'react-hot-toast'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import AdminLayout from '../../components/AdminLayout'
@@ -60,13 +60,16 @@ function DoctorsList() {
             dataIndex: 'email',
         },
         {
-            title: 'Phone Number',
-            dataIndex: 'phoneNumber',
+            title: 'Chat Review',
+            dataIndex: 'chat-review',
+            render: (text, record) => (
+                <Button type="link" onClick={() => console.log('Viewing chat of user:', record.name)}>View</Button>
+            ),
         },
-        {
-            title: 'Created At',
-            dataIndex: 'createdAt',
-        },
+        // {
+        //     title: 'Created At',
+        //     dataIndex: 'createdAt',
+        // },
         {
             title: 'Status',
             dataIndex: 'status',
@@ -82,18 +85,42 @@ function DoctorsList() {
         },
     ]
 
+    const sampleData = [
+        {
+            "name": "John Doe",
+            "email": "john@example.com",
+            "chat-review": "Link to chat review",
+            "block-by-users-start": 2,
+            "block-by-users-now": 1
+        },
+        {
+            "name": "Jane Smith",
+            "email": "jane@example.com",
+            "chat-review": "Link to chat review",
+            "block-by-users-start": 0,
+            "block-by-users-now": 0
+        },
+        {
+            "name": "Alice Johnson",
+            "email": "alice@example.com",
+            "chat-review": "Link to chat review",
+            "block-by-users-start": 5,
+            "block-by-users-now": 3
+        }
+    ];
+
     return (
         <>
             {role === 'ADMIN' ? (
                 <AdminLayout>
                     <h1 className='page-header'> Doctors List</h1>
-                    <Table columns={columns} dataSource={doctors}/>
+                    <Table columns={columns} dataSource={sampleData}/>
                 </AdminLayout>
                 
             ) : (
                 <ModeratorLayout>
                     <h1 className='page-header'> Doctors List</h1>
-                    <Table columns={columns} dataSource={doctors}/>
+                    <Table columns={columns} dataSource={sampleData}/>
                 </ModeratorLayout>
             )}
             

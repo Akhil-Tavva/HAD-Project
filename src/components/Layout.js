@@ -141,7 +141,7 @@ function Layout({ children }) {
 
     const handleLogout = async () => {
         console.log("1");
-        // await AsyncStorage.removeItem('token')
+        
         await AsyncStorage.clear();
         console.log("2");
         navigate('/')

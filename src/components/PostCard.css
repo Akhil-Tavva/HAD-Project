@@ -114,7 +114,7 @@ body {
     margin: 20px;
     padding: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* cursor: pointer; */
+    cursor: pointer;
 }
 
 .group-avatar {
@@ -152,3 +152,27 @@ body {
     text-decoration: none;
 }
 
+.icon-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icon-left,
+.icon-center,
+.icon-right {
+    display: flex;
+    align-items: center;
+}
+
+.icon-left {
+    margin-right: auto;
+}
+
+.icon-right {
+    margin-left: auto;
+}
+
+.liked i {
+    color: red;
+}

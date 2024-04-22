@@ -3,12 +3,12 @@ import axios from 'axios'
 import Layout from '../../components/ModeratorLayout'
 import Forum from '../Forum/Forum';
 import { Link, useNavigate } from 'react-router-dom';
-import '../../components/ForumCard.css';
+import '../../components/PostCard.css';
 // import { hideLoading, showLoading } from '../../redux/alertsSlice'
 import { useDispatch} from 'react-redux'
 import toast from 'react-hot-toast'
 import { Button } from 'antd';
-import '../../components/ForumCard.css'
+import '../../components/PostCard.css'
 
 function Home() {
     const [forumId, setforumId] = useState([]);

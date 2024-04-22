@@ -4,10 +4,10 @@ import Layout from '../../components/Layout'
 import SeniorDoctorLayout from '../../components/Layout'
 import AdminLayout from '../../components/AdminLayout'
 import ModeratorLayout from '../../components/ModeratorLayout'
-import ForumCard from '../../components/ForumCard';
-import ForumPage from '../../components/ForumPage';
+import PostCard from '../../components/PostCard';
+import PostDetails from '../../components/PostDetails';
 import { Link } from 'react-router-dom';
-import '../../components/ForumCard.css';
+import '../../components/PostCard.css';
 // import { hideLoading, showLoading } from '../../redux/alertsSlice'
 import { useDispatch } from 'react-redux'
 import toast from 'react-hot-toast'
@@ -19,7 +19,9 @@ function Forum({ forumId }) {
     const [selectedPost, setSelectedPost] = useState(null);
     const [role, setRole] = useState('');
     const dispatch = useDispatch()
+
     const handlePostSelect = (post) => {
+        console.log('handle post')
         setSelectedPost(post);
     };
 
@@ -58,12 +60,12 @@ function Forum({ forumId }) {
 
     const Userdetails = AsyncStorage.getItem('Role');
     async function someFunction() {
-        await Userdetails.then((res) => setRole(res)); // Assuming promiseObject is your Promise
+        await Userdetails.then((res) => setRole(res)); 
     }
     someFunction()
-    console.log('User Role: ',role)
+    // console.log('User Role: ',role)
 
-    // ADD CATEGORIES
+    // ADD post content
     const postData = [
         { id: 1, content: "Hey, how are you?", like: 0 },
         { id: 2, content: "Hi there!", like: 1 },
@@ -77,8 +79,6 @@ function Forum({ forumId }) {
         { id: 10, content: "Nice weather we're having.", like: 1 }
     ];
 
-    // const role = AsyncStorage.getItem('Role');
-    // console.log('User Role: ', role)
     return (
         <>
             {role === 'ADMIN' ? (
@@ -93,9 +93,9 @@ function Forum({ forumId }) {
                         <hr />
                         <div className="post-list">
                             {postData.map(post => (
-                                <ForumCard
+                                <PostCard
                                     key={post.id}
-                                    name={post.name}
+                                    // name={post.name}
                                     content={post.content}
                                     initialLikes={post.like}
                                     onClick={() => handlePostSelect(post)}
@@ -103,9 +103,9 @@ function Forum({ forumId }) {
                             ))}
                         </div>
 
-                        <div>
-                            {selectedPost && <ForumPage post={selectedPost} />}
-                        </div>
+                        {/* <div>
+                            {selectedPost && <PostDetails post={selectedPost} />}
+                        </div> */}
                     </div>
                 </AdminLayout>
             ) : role === 'SENIOR_DOCTOR' ? (
@@ -120,7 +120,7 @@ function Forum({ forumId }) {
                         <hr />
                         <div className="post-list">
                             {postData.map(post => (
-                                <ForumCard
+                                <PostCard
                                     key={post.id}
                                     name={post.name}
                                     content={post.content}
@@ -130,9 +130,9 @@ function Forum({ forumId }) {
                             ))}
                         </div>
 
-                        <div>
-                            {selectedPost && <ForumPage post={selectedPost} />}
-                        </div>
+                        {/* <div>
+                            {selectedPost && <PostDetails post={selectedPost} />}
+                        </div> */}
                     </div>
 
                 </SeniorDoctorLayout>
@@ -148,7 +148,7 @@ function Forum({ forumId }) {
                         <hr />
                         <div className="post-list">
                             {postData.map(post => (
-                                <ForumCard
+                                <PostCard
                                     key={post.id}
                                     name={post.name}
                                     content={post.content}
@@ -158,9 +158,9 @@ function Forum({ forumId }) {
                             ))}
                         </div>
 
-                        <div>
-                            {selectedPost && <ForumPage post={selectedPost} />}
-                        </div>
+                        {/* <div>
+                            {selectedPost && <PostDetails post={selectedPost} />}
+                        </div> */}
                     </div>
                 </ModeratorLayout>
             ) : (
@@ -175,7 +175,7 @@ function Forum({ forumId }) {
                         <hr />
                         <div className="post-list">
                             {postData.map(post => (
-                                <ForumCard
+                                <PostCard
                                     key={post.id}
                                     name={post.name}
                                     content={post.content}
@@ -185,9 +185,9 @@ function Forum({ forumId }) {
                             ))}
                         </div>
 
-                        <div>
-                            {selectedPost && <ForumPage post={selectedPost} />}
-                        </div>
+                        {/* <div>
+                            {selectedPost && <PostDetails post={selectedPost} />}
+                        </div> */}
                     </div>
                 </Layout>
             )}

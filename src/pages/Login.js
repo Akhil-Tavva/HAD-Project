@@ -13,7 +13,7 @@ function Login() {
     const navigate = useNavigate();
     const onFinish = async (values) => {
         try {
-            dispatch(showLoading());
+            dispatch(showLoading()); 
             const response = await axios.post('http://localhost:8081/auth/login', values);
             dispatch(hideLoading());
             console.log('Response data success:', response.data);

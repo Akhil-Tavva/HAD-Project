@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import '../Layout.css'
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux'; 
 import { useNavigate } from 'react-router-dom';
 import { Badge, Button } from 'antd'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { hideLoading, showLoading } from '../redux/alertsSlice';
+import axios from 'axios'
 
 function AdminLayout({ children }) {
     const [collapsed, setCollapsed] = React.useState(false)
     const { user } = useSelector((state) => state.user)
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    const location = useLocation();
+    const location = useLocation()
     // const [role, setRole] = useState(null);
     // const [MenuRendering, setMenuRendering] = useState(null);
 
@@ -49,8 +51,7 @@ function AdminLayout({ children }) {
     ];
 
     const handleLogout = async () => {
-        console.log("1");
-        // await AsyncStorage.removeItem('token')
+        console.log('1')
         await AsyncStorage.clear();
         console.log("2");
         navigate('/')
@@ -91,7 +92,7 @@ function AdminLayout({ children }) {
                             </Badge>
 
                             {/* when if we create a user or doctor then we it will directly visible here */}
-                            <Link className='anchor mx-2' to='/doctor/profile'> Admin</Link>
+                            <Link className='anchor mx-2' to='/admin/profile'> Admin</Link>
                             <Button className="anchor mx-2" onClick={handleLogout}>Logout </Button>
                         </div>
                     </div>

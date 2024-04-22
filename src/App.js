@@ -16,13 +16,14 @@ import DoctorsList from "./pages/Admin/DoctorsList";
 import UsersList from "./pages/Admin/UsersList";
 import Chats from "./pages/Chats";
 import CreatePost from "./pages/Forum/CreatePost";
-import ForumPage from "./components/ForumPage";
+import PostDetails from "./components/PostDetails";
 import AddDoctor from "./pages/Admin/AddDoctor";
 import YourPosts from "./pages/Forum/YourPosts";
 import ModeratorHome from './pages/Moderator/ModeratorHome'
 import AdminHome from './pages/Admin/AdminHome'
 import ForgetPassword from './pages/ForgetPassword'
 import UpdatePassword from './pages/UpdatePassword'
+import CreateForum from "./pages/Forum/CreateForum";
 
 function App() {
   const {loading} = useSelector(state => state.alerts); // change intial state loading as true in alertsSlice.js file to get spinner
@@ -50,6 +51,7 @@ function App() {
         {/* <Route path="/app" element={<ProtectedRoute> <Notifications /> </ProtectedRoute>}/> */}
         <Route path="/notifications" element={<Notifications />}/>
         <Route path="/doctor/profile" element={<Profile />}/>
+        <Route path="/admin/profile" element={<Profile />}/>
         <Route path="/doctor/appointments-list" element={<Appointments />}/>
         <Route path="/admin/doctors-list" element={<DoctorsList />}/>
         <Route path="/admin/users-list" element={<UsersList />}/>
@@ -60,7 +62,8 @@ function App() {
         <Route path="/doctor/chats" element={<Chats />}/>
         {/* <Route path="/admin/chats" element={<Chats />}/> */}
         <Route path="/newpost" element={<CreatePost />}/>
-        <Route path="/post/id" element={<ForumPage />}/>
+        <Route path="/createforum" element={<CreateForum />}/>
+        <Route path="/post/id" element={<PostDetails />}/>
         <Route path="/yourposts" element={<YourPosts />}/>
         
         

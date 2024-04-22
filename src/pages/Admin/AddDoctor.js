@@ -6,7 +6,7 @@ import './AddDoctor.css';
 
 const AddDoctor = () => {
   const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); 
 
   const onFinish = (values) => {
     setLoading(true);
@@ -37,16 +37,23 @@ const AddDoctor = () => {
           <Input />
         </Form.Item>
         <Form.Item
-          label="Specialization"
-          name="specialization"
-          rules={[{ required: true, message: 'Please input the specialization!' }]}
+          label="Email"
+          name="email"
+          rules={[{ required: true, message: 'Please input the email!' }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
-          label="Email"
-          name="email"
-          rules={[{ required: true, message: 'Please input the email!' }]}
+          label="Phone Number"
+          name="phoneNo"
+          rules={[{ required: true, message: 'Please input phone number!' }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="Specialization"
+          name="specialization"
+          rules={[{ required: true, message: 'Please input the specialization!' }]}
         >
           <Input />
         </Form.Item>

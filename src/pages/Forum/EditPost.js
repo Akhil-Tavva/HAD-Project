@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Layout from '../../components/Layout'
-import ForumCard from './ForumCard'
+import PostCard from './PostCard'
 
 
 function EditPost() {

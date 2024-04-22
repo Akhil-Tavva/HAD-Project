@@ -83,7 +83,7 @@ function UsersList() {
             dataIndex: 'name',
         },
         {
-            title: 'Email',
+            title: 'Email', 
             dataIndex: 'email',
         },
         {
