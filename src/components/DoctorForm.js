@@ -3,9 +3,9 @@ import {Button, Col, Form, Input, Row, TimePicker} from 'antd'
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom'
 import {showLoading, hideLoading} from '../redux/alertsSlice'
-import {toast} from 'react-hot-toast'
-import axios from 'axios'
-import Layout from './Layout';
+// import {toast} from 'react-hot-toast'
+// import axios from 'axios'
+// import Layout from './Layout';
 
 function DoctorForm() {
     const dispatch = useDispatch()

@@ -1,34 +1,74 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import Layout from './Layout'
-import AdminLayout from './AdminLayout';
+import AdminLayout from './AdminLayout'
 import SeniorDoctorLayout from './Layout'
 import ModeratorLayout from './ModeratorLayout'
-import { useParams } from 'react-router-dom'; // Import useParams hook to access URL parameters
 import './PostCard.css'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios  from 'axios'
+import { Link, useNavigate } from 'react-router-dom'
+import {url} from '../const'
 
-function PostDetails({ post }) {
+function PostDetails({ postId }) {
+    
     const [role, setRole] = useState('');
-
-    //   const { postId } = useParams(); // Extract postId from URL parameters
-    //   const [post, setPost] = useState(null);
-
-    //   useEffect(() => {
-    //     // Find the post with the matching postId
-    //     console.log(posts)
-    //     const foundPost = posts.find(post => post.id === postId);
-    //     setPost(foundPost);
-    //   }, [posts, postId]);
     const Userdetails = AsyncStorage.getItem('Role');
     async function someFunction() {
         await Userdetails.then((res) => setRole(res)); // Assuming promiseObject is your Promise
     }
     someFunction()
     console.log('User Role: ', role)
+    
+    const [post, setPost] = useState(null);
+    useEffect(() => {
+        // Fetch the post details based on postId
+        const fetchPostDetails = async () => {
+            try {
+                axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+                const response = await axios.post(url+`forum/${postId}`);
+                setPost(response.data); // Assuming the response contains the post details
+            } catch (error) {
+                console.error('Error fetching post details:', error);
+                // Handle error
+            }
+        };
+
+        fetchPostDetails();
+    }, [postId]);
+
     if (!post) {
         return (
             <AdminLayout>
+                <Link to="/deletepost" >
+                    <button className='create-post'>Delete Post</button>
+                </Link>
+                {/* check user authentication */}
+                {/* if the user is the one who posted it then edit post option should be available */}
+                
+                <button id="editButton" class="edit-button">Edit</button>
+            
+                <hr />
                 Loading ...
+                <h2> {postId} </h2>
+                <hr />
+                <div className="actions">
+                    <div className="icon-container">
+                        <div className={`icon-left`}>
+                            <i className="ri-heart-line"></i>
+                            <span className='like'> Like </span>
+                        </div>
+                        <div className="icon-center">
+                            <i className="ri-chat-4-line"></i>
+                            <span className='comment'> Comments </span>
+                        </div>
+                        <div className="icon-right">
+                            <i className="ri-flag-2-line"></i>
+                            <span>   Report   </span>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                    
             </AdminLayout>
         );
     }

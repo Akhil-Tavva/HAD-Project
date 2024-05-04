@@ -21,7 +21,7 @@ const CreatePost = ({ addPost }) => {
         ev.preventDefault();
         try {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-            const response = await axios.post('http://localhost:8081/forum/create-post', {
+            const response = await axios.post('http://localhost:8080/forum/create-post', {
                 forumName: forumName,
                 title: title,
                 content: content
@@ -29,7 +29,7 @@ const CreatePost = ({ addPost }) => {
             if (response.status === 200) {
                 setRedirect(true);
             }
-        } catch (error) {
+        } catch (error) { 
             console.error('Error creating post:', error);
             toast.error('Failed to create post. Please try again later.');
         }
@@ -37,7 +37,7 @@ const CreatePost = ({ addPost }) => {
     
     if (redirect) {
         toast.success('Succesfully created post');
-        return navigate('/')
+        return navigate('/home')
     }
     
     // const handleSubmit = e => {

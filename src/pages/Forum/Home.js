@@ -3,145 +3,105 @@ import { Link, useNavigate } from 'react-router-dom';
 import Layout from '../../components/Layout';
 import AdminLayout from '../../components/AdminLayout'
 import ModeratorLayout from '../../components/ModeratorLayout'
-import SeniorDoctorLayout from '../../components/Layout'
+import SeniorDoctorLayout from '../../components/SrDoctorLayout'
 import '../../components/PostCard.css'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import ForumCard from '../../components/ForumCard';
+import toast from 'react-hot-toast'
+import axios from 'axios';
+import {url} from '../../const'
 
 function Home() {
     const navigate = useNavigate();
     const [role, setRole] = useState('');
+    const [groups, setGroups] = useState([])
 
-    // Handle the click event on the group card
-    const handleGroupCardClick = () => {
-        // Navigate to the Forum page
-        navigate('/forum');
-    };
+    const getData = async () => {
+        try {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+            // const response = await axios.get('http://localhost:8080/forum/')
+            const response = await axios.get(url+'/forum/');
+            console.log(response.data)
+            setGroups(response.data.payload)
+            console.log(groups)
+        } catch (error) {
+            if (error.response) {
+                // The request was made and the server responded with a status code
+                console.error('Server responded with status:', error.response.status);
+                console.error('Response data:', error.response.data);
+                toast.error('Server Error: ' + error.response.data.message);
+            } else if (error.request) {
+                // The request was made but no response was received
+                console.error('No response received:', error.request);
+                toast.error('No response from server');
+            } else {
+                // Something else happened while setting up the request
+                console.error('Error setting up request:', error.message);
+                toast.error('Error setting up request');
+            }
+        }
+    }
 
-    const Userdetails = AsyncStorage.getItem('User Details');
+    useEffect(() => {
+        getData()
+    }, [])
+
+    const Userdetails = AsyncStorage.getItem('Role');
     async function someFunction() {
-        await Userdetails.then((res) => setRole(res)); // Assuming promiseObject is your Promise
+        await Userdetails.then((res) => setRole(res)); 
     }
     someFunction()
     console.log('User Role: ', role)
+
     return (
-        // <>
-        //     {role === 'ADMIN' ? (
-        //         <AdminLayout>
-        //             {/* Content for admin role */}
-        //             <h2>Forums</h2>
-        //             <Link to='/createforum'>
-        //                 <button className='create-post'>Create Forum</button>
-        //             </Link>
-        //             <Link to='/forum'>
-        //                 <button className='create-post'>Category 1</button>
-        //             </Link>
-        //             <hr />
-        //             <Link to='/forum' onClick={handleGroupCardClick} className="link-no-outline">
-        //                 <div className="group-card">
-        //                     {/* Group Card Content */}
-        //                 </div>
-        //                 <div className="group-info">
-        //                     <h1 className="group-name">Group Name</h1>
-        //                     <p className="group-description">Group Description Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        //                     <p className="group-members">Members: 100</p>
-        //                 </div>
-        //             </Link>
-        //         </AdminLayout>
-        //     ) : role === 'SENIOR_DOCTOR' ? (
-        //         <SeniorDoctorLayout>
-        //             <h2>Forums</h2>
-        //             <Link to='/createforum'>
-        //                 <button className='create-post'>Create Forum</button>
-        //             </Link>
-        //             <Link to='/forum'>
-        //                 <button className='create-post'>Category 1</button>
-        //             </Link>
-        //             <hr />
-        //             <Link to='/forum' onClick={handleGroupCardClick} className="link-no-outline">
-        //                 <div className="group-card">
-        //                     <div className="group-card">
-        //                         {/* Group Card Content */}
-        //                     </div>
-        //                     <div className="group-info">
-        //                         <h1 className="group-name">Group Name</h1>
-        //                         <p className="group-description">Group Description Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        //                         <p className="group-members">Members: 100</p>
-        //                     </div>
-        //                 </div>
-        //             </Link>
+        <>
+            {role === 'ADMIN' ? (
+                <AdminLayout>
+                    <ForumCard name={'Group Name1'}/>
+                    <ForumCard name={'Group Name1'}/>
+                    <ForumCard name={'Group Name1'}/>
+                    <ForumCard name={'Group Name1'}/>
+                </AdminLayout>
+            ) : role === 'SENIOR_DOCTOR' ? (
+                <SeniorDoctorLayout>
+                    <h2>Forums</h2>
+                    <hr />
+                    <ForumCard name={'Group Name1'}/>
+                    <ForumCard name={'Group Name2'}/>
+                    <ForumCard name={'Group Name3'}/>
+                    <ForumCard name={'Group Name4'}/>
 
-        //         </SeniorDoctorLayout>
-        //     ) : role === 'MODERATOR' ? ( 
-        //         <ModeratorLayout>
-        //             <h2>Forums</h2>
-        //             <Link to='/createforum'>
-        //                 <button className='create-post'>Create Forum</button>
-        //             </Link>
-        //             <Link to='/forum'>
-        //                 <button className='create-post'>Category 1</button>
-        //             </Link>
-        //             <hr />
-        //             <Link to='/forum' onClick={handleGroupCardClick} className="link-no-outline">
-        //                 <div className="group-card">
-        //                     <div className="group-card">
-        //                         {/* Group Card Content */}
-        //                     </div>
-        //                     <div className="group-info">
-        //                         <h1 className="group-name">Group Name</h1>
-        //                         <p className="group-description">Group Description Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        //                         <p className="group-members">Members: 100</p>
-        //                     </div>
-        //                 </div>
-        //             </Link>
-        //         </ModeratorLayout>
-        //     ) : (
-        //         <Layout>
-        //             <h2>Forums</h2>
-        //             <Link to='/createforum'>
-        //                 <button className='create-post'>Create Forum</button>
-        //             </Link>
-        //             <Link to='/forum'>
-        //                 <button className='create-post'>Category 1</button>
-        //             </Link>
-        //             <hr />
-        //             <Link to='/forum' onClick={handleGroupCardClick} className="link-no-outline">
-        //                 <div className="group-card">
-        //                     <div className="group-card">
-        //                         {/* Group Card Content */}
-        //                     </div>
-        //                     <div className="group-info">
-        //                         <h1 className="group-name">Group Name</h1>
-        //                         <p className="group-description">Group Description Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        //                         <p className="group-members">Members: 100</p>
-        //                     </div>
-        //                 </div>
-        //             </Link>
-        //         </Layout>
-        //     )}
-        // </>
-        <Layout>
-            <h2>Forums</h2>
-            <Link to='/createforum' >
-                <button className='create-post'> Create Forum</button>
-            </Link>
-            
-            <Link to='/deleteallforums' >
-                <button className='create-post'> Delete All Forums</button>
-            </Link>
-            <hr />
+                </SeniorDoctorLayout>
+            ) : role === 'MODERATOR' ? (
+                <ModeratorLayout>
+                    <Link to='/createforum' >
+                        <button className='create-post'> Create Forum</button>
+                    </Link>
+                    <Link to='/deleteforum' >
+                        <button className='create-post'> Delete Forum</button>
+                    </Link>
+                    <hr />
 
-            <div class="group-card" onClick={handleGroupCardClick}>
-                <div class="group-avatar">
-                    {/* <!-- Group Avatar Image --> */}
-                </div>
-                <div class="group-info">
-                    <h1 class="group-name">Group Name</h1>
-                    <p class="group-description">Group Description Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    <p class="group-members">Members: 100</p>
-                </div>
-            </div>
-        </Layout>
+                    <ForumCard />
+                    <ForumCard />
+                    <ForumCard />
+                    <ForumCard />
+                </ModeratorLayout>
+            ) : (
+                <Layout>
+                    <h2>Forums</h2>
+                    <hr />
+                    <ForumCard name={'Group Name1'}/>
+                    <ForumCard name={'Group Name2'}/>
+                    <ForumCard name={'Group Name3'}/>
+                    <ForumCard name={'Group Name4'}/>
+                </Layout>
+            )}
+        </>
     );
 }
 
 export default Home;
+
+
+

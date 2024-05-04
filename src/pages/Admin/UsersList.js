@@ -7,18 +7,28 @@ import { Table,Button } from 'antd'
 import toast from 'react-hot-toast'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import AdminLayout from '../../components/AdminLayout'
-
+import {url} from '../../const'
 
 function UsersList() {
     const [users, setUsers] = React.useState([])
     const dispatch = useDispatch()
-    const [role, setRole] = useState('');
+    const [role, setRole] = useState('')
 
     const getUsersData = async() => {
         try {
             dispatch(showLoading())
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-            const response = await axios.get('http://localhost:8081/auth/')
+            // const response = await axios.get('http://localhost:8080/auth/')
+            // let response;
+            // if (role === 'admin') {
+            //     console.log("This is admin")
+            //     response = await axios.get(url + '/auth/');
+            //   } else {
+            //     console.log("This is moderator")
+            //     // Default login for other roles
+            //     response = await axios.get(url + '/auth/login');
+            //   }
+            const response = await axios.get(url+'/auth/')
             dispatch(hideLoading())
             setUsers(response.data.payload)
             console.log(users)
@@ -71,11 +81,10 @@ function UsersList() {
     //         }
     //     },
     // ]
-
-    const handleBlockUser = (userId) => {
-        // Add logic to block user with userId
-        console.log('Blocking user with ID:', userId);
-    };
+    // const handleBlockUser = (userId) => {
+    //     // Add logic to block user with userId
+    //     console.log('Blocking user with ID:', userId);
+    // };
 
     const columns = [
         {
@@ -142,16 +151,6 @@ function UsersList() {
     ];
 
 
-    // useEffect(() => {
-    //     // Fetch user role when the component mounts
-    //     AsyncStorage.getItem('Role')
-    //         .then((res) => {
-    //             setRole(res);
-    //             console.log('User Role:', res);
-    //         })
-    //         .catch((error) => console.error('Error fetching user role:', error));
-    // }, []);
-
     return (
         <>
             {role === 'ADMIN' ? (
@@ -159,7 +158,7 @@ function UsersList() {
                     <h1 className='page-header'> Users List</h1>
                     <Table columns={columns} dataSource={sampleData}/>
                 </AdminLayout>
-            ) : (
+            ) : ( 
                 <ModeratorLayout>
                     <h1 className='page-header'> Users List</h1>
                     <Table columns={columns} dataSource={sampleData}/>

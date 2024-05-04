@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import '../Layout.css' 
+import '../Layout.css'
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { Badge, Button } from 'antd'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-function Layout({ children }) {
+function SrLayout({ children }) {
     const [collapsed, setCollapsed] = React.useState(false)
     const { user } = useSelector((state) => state.user)
     const navigate = useNavigate();
@@ -14,6 +14,45 @@ function Layout({ children }) {
     const location = useLocation();
     // const [role, setRole] = useState(null);
     // const [MenuRendering, setMenuRendering] = useState(null);
+
+    const doctorMenu = [
+        {
+            name: 'Home',
+            path: '/home',
+            icon: 'ri-home-line'
+        },
+        {
+            name: 'Chats',
+            path: '/srdoctor/chats',
+            icon: 'ri-chat-1-fill'
+        },
+        // {
+        //     name: 'Video Call',
+        //     path: '/video-call',
+        //     icon: 'ri-video-chat-line'
+        // },
+        {
+            name: 'Appointments List',
+            path: '/srdoctor/appointments-list',
+            icon: 'ri-file-list-line'
+        },
+        {
+            name: 'Profile',
+            path: '/srdoctor/profile',
+            icon: 'ri-user-line'
+        },
+        {
+            name: 'Resources',
+            path: '/srdoctor/resources',
+            icon: 'ri-database-line'
+        },
+        // {
+        //     name: 'Add Doctor',
+        //     path: '/add-doctor',
+        //     icon: 'ri-login-box-line'
+        // },
+
+    ];
 
     // const SeniordoctorMenu = [
     //     {
@@ -72,37 +111,37 @@ function Layout({ children }) {
     //     },
     // ];
 
-    const moderatorMenu = [
-        {
-            name: 'Home',
-            path: '/home',
-            icon: 'ri-home-line'
-        },
-        {
-            name: 'Users',
-            path: '/moderator/users-list',
-            icon: 'ri-user-line'
-        }, 
-        {
-            name: 'Doctors',
-            path: '/moderator/doctors-list',
-            icon: 'ri-user-star-line'
-        },
-        {
-            name: 'Profile',
-            path: '/admin/profile',
-            icon: 'ri-user-line'
-        },
-        {
-            name: 'Add Doctor',
-            path: '/moderator/add-doctor',
-            icon: 'ri-login-box-line'
-        },
-    ];
+    // const moderatorMenu = [
+    //     {
+    //         name: 'Home',
+    //         path: '/',
+    //         icon: 'ri-home-line'
+    //     },
+    //     {
+    //         name: 'Users',
+    //         path: '/admin/users-list',
+    //         icon: 'ri-user-line'
+    //     },
+    //     {
+    //         name: 'Doctors',
+    //         path: '/admin/doctors-list',
+    //         icon: 'ri-user-star-line'
+    //     },
+    //     {
+    //         name: 'Profile',
+    //         path: '/admin/profile',
+    //         icon: 'ri-user-line'
+    //     },
+    //     {
+    //         name: 'Add Doctor',
+    //         path: '/add-doctor',
+    //         icon: 'ri-login-box-line'
+    //     },
+    // ];
 
     const handleLogout = async () => {
         console.log("1");
-        // await AsyncStorage.removeItem('token')
+        
         await AsyncStorage.clear();
         console.log("2");
         navigate('/')
@@ -149,7 +188,7 @@ function Layout({ children }) {
     // }, [role, menuRendering])
     // setMenuRendering(adminMenu)
 
-    const ModeratormenuRendering = moderatorMenu
+    const DoctormenuRendering = doctorMenu
 
     return (
         <div className='main p-2'>
@@ -157,12 +196,12 @@ function Layout({ children }) {
                 <div className='sidebar'>
                     <div className='sidebar-header'>
                         {!collapsed ? <h1 className='logo'>EMPATHEASE</h1> : <h1 className='logo'>EE</h1>}
-                        <h1 className='role'> Moderator </h1>
+                        <h1 className='role'> Sr Doctor </h1>
                     </div>
 
-                    {ModeratormenuRendering ? (
+                    {DoctormenuRendering ? (
                         <div className='menu'>
-                            {ModeratormenuRendering.map((menu, index) => {
+                            {DoctormenuRendering.map((menu, index) => {
                                 const isActive = location.pathname === menu.path;
                                 return (
                                     <div key={index} className={`d-flex menu-item ${isActive && 'active-menu-item'}`}>
@@ -187,7 +226,7 @@ function Layout({ children }) {
                             </Badge>
 
                             {/* when if we create a user or doctor then we it will directly visible here */}
-                            <Link className='anchor mx-2' to='/doctor/profile'> Moderator</Link>
+                            <Link className='anchor mx-2' to='/doctor/profile'> Sr Doctor</Link>
 
                             <Button className="anchor mx-2" onClick={handleLogout}>Logout </Button>
                         </div>
@@ -202,5 +241,5 @@ function Layout({ children }) {
     )
 }
 
-export default Layout
+export default SrLayout
 

@@ -3,21 +3,23 @@ import { useDispatch } from 'react-redux'
 import ModeratorLayout from '../../components/ModeratorLayout'
 import { showLoading, hideLoading } from '../../redux/alertsSlice'
 import axios from 'axios'
-import { Table,Button } from 'antd'
+import { Table,Button } from 'antd' 
 import toast from 'react-hot-toast'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import AdminLayout from '../../components/AdminLayout'
+import {url} from '../../const'
 
 function DoctorsList() {
     const [doctors, setDoctors] = React.useState([])
     const dispatch = useDispatch()
-    const [role, setRole] = useState('');
+    const [role, setRole] = useState('')
 
     const getUsersData = async () => {
         try {
             dispatch(showLoading())
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-            const response = await axios.get('http://localhost:8081/auth/')
+            // const response = await axios.get('http://localhost:8080/auth/')
+            const response = await axios.get(url+'/admin/doctor/');
             dispatch(hideLoading())
             setDoctors(response.data.payload)
             console.log(doctors)
@@ -85,7 +87,7 @@ function DoctorsList() {
         },
     ]
 
-    const sampleData = [
+    const sampleData1 = [
         {
             "name": "John Doe",
             "email": "john@example.com",
@@ -114,13 +116,13 @@ function DoctorsList() {
             {role === 'ADMIN' ? (
                 <AdminLayout>
                     <h1 className='page-header'> Doctors List</h1>
-                    <Table columns={columns} dataSource={sampleData}/>
+                    <Table columns={columns} dataSource={sampleData1}/>
                 </AdminLayout>
                 
             ) : (
                 <ModeratorLayout>
                     <h1 className='page-header'> Doctors List</h1>
-                    <Table columns={columns} dataSource={sampleData}/>
+                    <Table columns={columns} dataSource={sampleData1}/>
                 </ModeratorLayout>
             )}
             

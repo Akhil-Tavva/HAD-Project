@@ -4,26 +4,26 @@ import Layout from '../../components/Layout'
 import SeniorDoctorLayout from '../../components/Layout'
 import AdminLayout from '../../components/AdminLayout'
 import ModeratorLayout from '../../components/ModeratorLayout'
-import PostCard from '../../components/PostCard';
-import PostDetails from '../../components/PostDetails';
+import PostCard from '../../components/PostCard'
 import { Link } from 'react-router-dom';
 import '../../components/PostCard.css';
 // import { hideLoading, showLoading } from '../../redux/alertsSlice'
-import { useDispatch } from 'react-redux'
+// import { useDispatch } from 'react-redux'
 import toast from 'react-hot-toast'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import {url} from '../../const'
 
 
 function Forum({ forumId }) {
     const [posts, setPosts] = useState([]);
-    const [selectedPost, setSelectedPost] = useState(null);
+    // const [selectedPost, setSelectedPost] = useState(null);
     const [role, setRole] = useState('');
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
-    const handlePostSelect = (post) => {
-        console.log('handle post')
-        setSelectedPost(post);
-    };
+    // const handlePostSelect = (post) => {
+    //     console.log('handle post')
+    //     // setSelectedPost(post);
+    // };
 
     const addPost = newPost => {
         setPosts([...posts, { ...newPost, id: posts.length + 1 }]);
@@ -32,7 +32,8 @@ function Forum({ forumId }) {
     const getData = async () => {
         try {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-            const response = await axios.get('http://localhost:8081/forum/')
+            // const response = await axios.get('http://localhost:8080/forum/')
+            const response = await axios.get(url+'/forum/');
             console.log(response.data)
             setPosts(response.data.payload)
             console.log(posts)
@@ -94,11 +95,11 @@ function Forum({ forumId }) {
                         <div className="post-list">
                             {postData.map(post => (
                                 <PostCard
-                                    key={post.id}
+                                    id={post.id}
                                     // name={post.name}
                                     content={post.content}
                                     initialLikes={post.like}
-                                    onClick={() => handlePostSelect(post)}
+                                    // onClick={() => handlePostSelect(post)}
                                 />
                             ))}
                         </div>
@@ -107,7 +108,7 @@ function Forum({ forumId }) {
                             {selectedPost && <PostDetails post={selectedPost} />}
                         </div> */}
                     </div>
-                </AdminLayout>
+                </AdminLayout> 
             ) : role === 'SENIOR_DOCTOR' ? (
                 <SeniorDoctorLayout>
                     <div className='post-container'>
@@ -125,7 +126,7 @@ function Forum({ forumId }) {
                                     name={post.name}
                                     content={post.content}
                                     initialLikes={post.like}
-                                    onClick={() => handlePostSelect(post)}
+                                    // onClick={() => handlePostSelect(post)}
                                 />
                             ))}
                         </div>
@@ -153,7 +154,7 @@ function Forum({ forumId }) {
                                     name={post.name}
                                     content={post.content}
                                     initialLikes={post.like}
-                                    onClick={() => handlePostSelect(post)}
+                                    // onClick={() => handlePostSelect(post)}
                                 />
                             ))}
                         </div>
@@ -180,7 +181,7 @@ function Forum({ forumId }) {
                                     name={post.name}
                                     content={post.content}
                                     initialLikes={post.like}
-                                    onClick={() => handlePostSelect(post)}
+                                    // onClick={() => handlePostSelect(post)}
                                 />
                             ))}
                         </div>

@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { hideLoading, showLoading } from '../redux/alertsSlice';
+import {url} from '../const'
 
 function UpdatePassword() {
     const [otp, setOtp] = useState('');
@@ -15,7 +16,9 @@ function UpdatePassword() {
     const onFinish = async (values) => {
         try {
             dispatch(showLoading());
-            const response = await axios.post('http://localhost:8081/auth/update-password', values);
+            // const response = await axios.post('http://localhost:8080/auth/update-password', values);
+            const response = await axios.post(url+'auth/update-password', values);
+            
             dispatch(hideLoading());
             console.log('Response data success:', response.data);
 

@@ -18,7 +18,7 @@ function Layout({ children }) {
     const doctorMenu = [
         {
             name: 'Home',
-            path: '/doctor',
+            path: '/home',
             icon: 'ri-home-line'
         },
         {
@@ -31,7 +31,7 @@ function Layout({ children }) {
         //     path: '/video-call',
         //     icon: 'ri-video-chat-line'
         // },
-        {
+        { 
             name: 'Appointments List',
             path: '/doctor/appointments-list',
             icon: 'ri-file-list-line'

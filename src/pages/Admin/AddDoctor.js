@@ -1,21 +1,30 @@
-import React, { useState } from 'react';
-import { Form, Input, Button} from 'antd';
-// import 'antd/dist/antd.css';
+import React, { useState, useEffect } from 'react';
+import { Form, Input, Button } from 'antd';
 import Layout from '../../components/AdminLayout'
 import './AddDoctor.css';
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+import { showLoading, hideLoading } from '../../redux/alertsSlice';
+import axios from 'axios';
+import {url} from '../../const'
 
+// doubt
 const AddDoctor = () => {
   const [form] = Form.useForm();
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const onFinish = (values) => {
+  const onFinish = async(values) => {
     setLoading(true);
     // Here you can implement the logic to add the new doctor, like making an API call
-    setTimeout(() => {
-      console.log('Received values:', values);
-      setLoading(false);
-      form.resetFields();
-    }, 1000);
+    dispatch(showLoading())
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+    // const response = await axios.get('http://localhost:8080/auth/')
+    const response = await axios.post(url + '/admin/doctor/', {
+
+    })
+    dispatch(hideLoading())
   };
 
   return (
@@ -29,6 +38,7 @@ const AddDoctor = () => {
         >
           <Input />
         </Form.Item>
+
         <Form.Item
           label="Last Name"
           name="lastname"
@@ -36,13 +46,18 @@ const AddDoctor = () => {
         >
           <Input />
         </Form.Item>
+
         <Form.Item
           label="Email"
           name="email"
-          rules={[{ required: true, message: 'Please input the email!' }]}
+          rules={[
+            { required: true, message: 'Please input the email!' },
+            { type: 'email', message: 'Please enter a valid email address!' }
+          ]}
         >
           <Input />
         </Form.Item>
+
         <Form.Item
           label="Phone Number"
           name="phoneNo"
@@ -50,6 +65,7 @@ const AddDoctor = () => {
         >
           <Input />
         </Form.Item>
+
         <Form.Item
           label="Specialization"
           name="specialization"
@@ -57,6 +73,7 @@ const AddDoctor = () => {
         >
           <Input />
         </Form.Item>
+
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={loading}>
             Submit
