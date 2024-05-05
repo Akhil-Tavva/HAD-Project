@@ -5,8 +5,8 @@ import SeniorDoctorLayout from '../../components/SrDoctorLayout'
 import AdminLayout from '../../components/AdminLayout'
 import ModeratorLayout from '../../components/ModeratorLayout'
 import PostCard from '../../components/PostCard'
-import { Link } from 'react-router-dom';
-import '../../components/PostCard.css';
+import { Link } from 'react-router-dom'
+import '../../components/PostCard.css'
 // import { hideLoading, showLoading } from '../../redux/alertsSlice'
 // import { useDispatch } from 'react-redux'
 import toast from 'react-hot-toast'
