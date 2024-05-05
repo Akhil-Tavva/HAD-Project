@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Layout from '../../components/Layout'
-import SeniorDoctorLayout from '../../components/Layout'
+import SeniorDoctorLayout from '../../components/SrDoctorLayout'
 import AdminLayout from '../../components/AdminLayout'
 import ModeratorLayout from '../../components/ModeratorLayout'
 import PostCard from '../../components/PostCard'
@@ -109,8 +109,8 @@ function Forum({ forumId }) {
                         </div> */}
                     </div>
                 </AdminLayout> 
-            ) : role === 'SENIOR_DOCTOR' ? (
-                <SeniorDoctorLayout>
+            ) : role === 'DOCTOR' ? (
+                <Layout>
                     <div className='post-container'>
                         <Link to="/newpost" addPost={addPost} >
                             <button className='create-post'>Create Post</button>
@@ -136,7 +136,7 @@ function Forum({ forumId }) {
                         </div> */}
                     </div>
 
-                </SeniorDoctorLayout>
+                </Layout>
             ) : role === 'MODERATOR' ? (
                 <ModeratorLayout>
                     <div className='post-container'>
@@ -165,7 +165,7 @@ function Forum({ forumId }) {
                     </div>
                 </ModeratorLayout>
             ) : (
-                <Layout>
+                <SeniorDoctorLayout>
                     <div className='post-container'>
                         <Link to="/newpost" addPost={addPost} >
                             <button className='create-post'>Create Post</button>
@@ -190,7 +190,7 @@ function Forum({ forumId }) {
                             {selectedPost && <PostDetails post={selectedPost} />}
                         </div> */}
                     </div>
-                </Layout>
+                </SeniorDoctorLayout>
             )}
         </>
     );

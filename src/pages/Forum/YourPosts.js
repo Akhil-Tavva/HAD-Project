@@ -29,8 +29,8 @@ function YourPost() {
                         <PostCard title=" Post 3" initialLikes={9} initialComments={4} />
                     </div>
                 </AdminLayout>
-            ) : role === 'SENIOR_DOCTOR' ? (
-                <SeniorDoctorLayout>
+            ) : role === 'DOCTOR' ? (
+                <Layout>
                     <Link to="/deleteallposts" >
                         <button className='create-post'>Delete All Posts</button>
                     </Link>
@@ -41,7 +41,7 @@ function YourPost() {
                         <PostCard title=" Post 2" initialLikes={11} initialComments={6} />
                         <PostCard title=" Post 3" initialLikes={9} initialComments={4} />
                     </div>
-                </SeniorDoctorLayout>
+                </Layout>
             ) : role === 'MODERATOR' ? (
                 <ModeratorLayout>
                     <Link to="/deleteallposts" >
@@ -56,10 +56,11 @@ function YourPost() {
                     </div>
                 </ModeratorLayout>
             ) : (
-                <Layout>
-                    <Link to="/deleteallposts" >
+                <SeniorDoctorLayout>
+                    {/* <Link to="/deleteallposts" >
                         <button className='create-post'>Delete All Posts</button>
-                    </Link>
+                    </Link> */}
+                    <h2> Your Posts</h2>
                     <hr />
 
                     <div className="app">
@@ -67,7 +68,7 @@ function YourPost() {
                         <PostCard title=" Post 2" initialLikes={11} initialComments={6} />
                         <PostCard title=" Post 3" initialLikes={9} initialComments={4} />
                     </div>
-                </Layout>
+                </SeniorDoctorLayout>
             )}
         </>
     );

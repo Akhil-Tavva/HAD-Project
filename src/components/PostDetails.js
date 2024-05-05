@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Layout from './Layout'
 import AdminLayout from './AdminLayout'
-import SeniorDoctorLayout from './Layout'
+import SeniorDoctorLayout from './SrDoctorLayout'
 import ModeratorLayout from './ModeratorLayout'
 import './PostCard.css'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -52,7 +52,7 @@ function PostDetails({ postId }) {
 
     if (!post) {
         return (
-            <Layout>
+            <SeniorDoctorLayout>
                 <Link to="/deletepost" >
                     <button className='create-post'>Delete Post</button>
                 </Link>
@@ -102,7 +102,7 @@ function PostDetails({ postId }) {
                         <button type="submit">Add Comment</button>
                     </form>
                 </div>
-            </Layout>
+            </SeniorDoctorLayout>
         );
     }
 
@@ -123,8 +123,8 @@ function PostDetails({ postId }) {
                         <span className='comment'> Comments</span>
                     </i>
                 </AdminLayout>
-            ) : role === 'SENIOR_DOCTOR' ? (
-                <SeniorDoctorLayout>
+            ) : role === 'DOCTOR' ? (
+                <Layout>
                     <button className='create-post'>Create Post</button>
                     <hr />
                     <h2>{post.text}</h2>
@@ -136,7 +136,7 @@ function PostDetails({ postId }) {
                     </i>
                     <i className="ri-chat-4-line">
                         <span className='comment'> Comments</span>
-                    </i>                </SeniorDoctorLayout>
+                    </i>                </Layout>
             ) : role === 'MODERATOR' ? (
                 <ModeratorLayout>
                     <button className='create-post'>Create Post</button>
@@ -153,7 +153,7 @@ function PostDetails({ postId }) {
                     </i>
                 </ModeratorLayout>
             ) : (
-                <Layout>
+                <SeniorDoctorLayout>
                     <button className='create-post'>Create Post</button>
                     <hr />
                     <h2>{post.text}</h2>
@@ -166,7 +166,7 @@ function PostDetails({ postId }) {
                     <i className="ri-chat-4-line">
                         <span className='comment'> Comments</span>
                     </i>
-                </Layout>
+                </SeniorDoctorLayout>
             )}
             <div className="comments-section">
                 <h3>Comments</h3>
