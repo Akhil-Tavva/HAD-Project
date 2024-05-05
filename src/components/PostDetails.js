@@ -5,48 +5,62 @@ import SeniorDoctorLayout from './Layout'
 import ModeratorLayout from './ModeratorLayout'
 import './PostCard.css'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import axios  from 'axios'
+import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
-import {url} from '../const'
+import { url } from '../const'
 
 function PostDetails({ postId }) {
-    
     const [role, setRole] = useState('');
+    const [comments, setComments] = useState([]);
+    const [newComment, setNewComment] = useState('');
+
     const Userdetails = AsyncStorage.getItem('Role');
     async function someFunction() {
         await Userdetails.then((res) => setRole(res)); // Assuming promiseObject is your Promise
     }
     someFunction()
     console.log('User Role: ', role)
-    
+
     const [post, setPost] = useState(null);
     useEffect(() => {
         // Fetch the post details based on postId
         const fetchPostDetails = async () => {
             try {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-                const response = await axios.post(url+`forum/${postId}`);
+                const response = await axios.post(url + `forum/${postId}`);
                 setPost(response.data); // Assuming the response contains the post details
             } catch (error) {
                 console.error('Error fetching post details:', error);
                 // Handle error
             }
         };
-
         fetchPostDetails();
     }, [postId]);
 
+    const handleCommentSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            // Make API call to submit the comment
+            const response = await axios.post(url + `forum/${postId}/comments`, { comment: newComment });
+            setComments([...comments, response.data]); // Add the new comment to the state
+            setNewComment(''); // Clear the input field
+        } catch (error) {
+            console.error('Error submitting comment:', error);
+            // Handle error
+        }
+    };
+
     if (!post) {
         return (
-            <AdminLayout>
+            <Layout>
                 <Link to="/deletepost" >
                     <button className='create-post'>Delete Post</button>
                 </Link>
                 {/* check user authentication */}
                 {/* if the user is the one who posted it then edit post option should be available */}
-                
+
                 <button id="editButton" class="edit-button">Edit</button>
-            
+
                 <hr />
                 Loading ...
                 <h2> {postId} </h2>
@@ -68,8 +82,27 @@ function PostDetails({ postId }) {
                     </div>
                 </div>
                 <hr />
-                    
-            </AdminLayout>
+
+                <div className="comments-section">
+                    <h3>Comments</h3>
+                    <ul className="comments-list">
+                        {comments.map((comment, index) => (
+                            // have to show comments 
+                            <li key={index}>{comment.text}</li>
+                        ))}
+                    </ul>
+                    {/* Add Comment Form */}
+                    <form onSubmit={handleCommentSubmit}>
+                        <textarea
+                            value={newComment}
+                            onChange={(e) => setNewComment(e.target.value)}
+                            placeholder="Write your comment..."
+                            required
+                        ></textarea>
+                        <button type="submit">Add Comment</button>
+                    </form>
+                </div>
+            </Layout>
         );
     }
 
@@ -135,6 +168,24 @@ function PostDetails({ postId }) {
                     </i>
                 </Layout>
             )}
+            <div className="comments-section">
+                <h3>Comments</h3>
+                <ul className="comments-list">
+                    {comments.map((comment, index) => (
+                        <li key={index}>{comment.text}</li>
+                    ))}
+                </ul>
+                {/* Add Comment Form */}
+                <form onSubmit={handleCommentSubmit}>
+                    <textarea
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        placeholder="Write your comment..."
+                        required
+                    ></textarea>
+                    <button type="submit">Add Comment</button>
+                </form>
+            </div>
         </>
     );
 }

@@ -8,6 +8,7 @@ import toast from 'react-hot-toast'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import AdminLayout from '../../components/AdminLayout'
 import {url} from '../../const'
+import SrLayout from '../../components/SrDoctorLayout'
 
 function UsersList() {
     const [users, setUsers] = React.useState([])
@@ -18,16 +19,6 @@ function UsersList() {
         try {
             dispatch(showLoading())
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-            // const response = await axios.get('http://localhost:8080/auth/')
-            // let response;
-            // if (role === 'admin') {
-            //     console.log("This is admin")
-            //     response = await axios.get(url + '/auth/');
-            //   } else {
-            //     console.log("This is moderator")
-            //     // Default login for other roles
-            //     response = await axios.get(url + '/auth/login');
-            //   }
             const response = await axios.get(url+'/auth/')
             dispatch(hideLoading())
             setUsers(response.data.payload)
@@ -154,15 +145,15 @@ function UsersList() {
     return (
         <>
             {role === 'ADMIN' ? (
-                <AdminLayout>
+                <SrLayout>
                     <h1 className='page-header'> Users List</h1>
                     <Table columns={columns} dataSource={sampleData}/>
-                </AdminLayout>
+                </SrLayout>
             ) : ( 
-                <ModeratorLayout>
+                <SrLayout>
                     <h1 className='page-header'> Users List</h1>
                     <Table columns={columns} dataSource={sampleData}/>
-                </ModeratorLayout>
+                </SrLayout>
             )}            
         </>
     )

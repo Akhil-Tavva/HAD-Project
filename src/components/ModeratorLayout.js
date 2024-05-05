@@ -80,12 +80,12 @@ function Layout({ children }) {
         },
         {
             name: 'Users',
-            path: '/moderator/users-list',
+            path: '/all-users-list',
             icon: 'ri-user-line'
         }, 
         {
             name: 'Doctors',
-            path: '/moderator/doctors-list',
+            path: '/all-doctors-list',
             icon: 'ri-user-star-line'
         },
         {

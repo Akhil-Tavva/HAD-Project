@@ -23,7 +23,7 @@ function Layout({ children }) {
         },
         {
             name: 'Chats',
-            path: '/doctor/chats',
+            path: '/chats',
             icon: 'ri-chat-1-fill'
         },
         // {
@@ -33,17 +33,17 @@ function Layout({ children }) {
         // },
         { 
             name: 'Appointments List',
-            path: '/doctor/appointments-list',
+            path: '/appointments-list',
             icon: 'ri-file-list-line'
         },
         {
             name: 'Profile',
-            path: '/doctor/profile',
+            path: '/profile',
             icon: 'ri-user-line'
         },
         {
             name: 'Resources',
-            path: '/doctor/resources',
+            path: '/resources',
             icon: 'ri-database-line'
         },
         // {

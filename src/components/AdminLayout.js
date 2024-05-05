@@ -30,12 +30,12 @@ function AdminLayout({ children }) {
         // },
         {
             name: 'Users',
-            path: '/admin/users-list',
+            path: '/all-users-list',
             icon: 'ri-user-line'
         },
         {
             name: 'Doctors',
-            path: '/admin/doctors-list',
+            path: '/all-doctors-list',
             icon: 'ri-user-star-line'
         },
         // {
@@ -45,7 +45,7 @@ function AdminLayout({ children }) {
         // },
         {
             name: 'Add Doctor',
-            path: '/admin/add-doctor',
+            path: '/add-doctor',
             icon: 'ri-login-box-line'
         },
     ];

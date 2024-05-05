@@ -11,7 +11,7 @@ const { Option } = Select;
 
 function Login() { 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const [selectedRole, setSelectedRole] = useState('doctor'); // Default role
 
     const onFinish = async (values) => {
@@ -23,14 +23,14 @@ function Login() {
     
           if (selectedRole === 'moderator') {
             console.log("This is moderator")
-            response = await axios.post(url + '/auth/mod-login', values);
+            response = await axios.post(url + '/auth/forget-password', values);
           } else if (selectedRole === 'admin') {
             console.log("This is admin")
-            response = await axios.post(url + '/auth/admin-login', values);
+            response = await axios.post(url + '/auth/forget-password', values);
           } else {
             console.log("This is doctor")
             // Default login for other roles
-            response = await axios.post(url + '/auth/login', values);
+            response = await axios.post(url + '/auth/forget-password', values);
           }
     
           dispatch(hideLoading());

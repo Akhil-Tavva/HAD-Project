@@ -9,50 +9,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 function SrLayout({ children }) {
     const [collapsed, setCollapsed] = React.useState(false)
     const { user } = useSelector((state) => state.user)
-    const navigate = useNavigate();
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const location = useLocation();
     // const [role, setRole] = useState(null);
     // const [MenuRendering, setMenuRendering] = useState(null);
-
-    const doctorMenu = [
-        {
-            name: 'Home',
-            path: '/home',
-            icon: 'ri-home-line'
-        },
-        {
-            name: 'Chats',
-            path: '/srdoctor/chats',
-            icon: 'ri-chat-1-fill'
-        },
-        // {
-        //     name: 'Video Call',
-        //     path: '/video-call',
-        //     icon: 'ri-video-chat-line'
-        // },
-        {
-            name: 'Appointments List',
-            path: '/srdoctor/appointments-list',
-            icon: 'ri-file-list-line'
-        },
-        {
-            name: 'Profile',
-            path: '/srdoctor/profile',
-            icon: 'ri-user-line'
-        },
-        {
-            name: 'Resources',
-            path: '/srdoctor/resources',
-            icon: 'ri-database-line'
-        },
-        // {
-        //     name: 'Add Doctor',
-        //     path: '/add-doctor',
-        //     icon: 'ri-login-box-line'
-        // },
-
-    ];
 
     // const SeniordoctorMenu = [
     //     {
@@ -138,15 +99,7 @@ function SrLayout({ children }) {
     //         icon: 'ri-login-box-line'
     //     },
     // ];
-
-    const handleLogout = async () => {
-        console.log("1");
-        
-        await AsyncStorage.clear();
-        console.log("2");
-        navigate('/')
-    }
-
+    
     // const menuRendering = user?.isAdmin ? adminMenu : doctorMenu; // change here 
     // const Userdetails = AsyncStorage.getItem('User Details')
     // console.log('Getting user details:',Userdetails)
@@ -188,6 +141,45 @@ function SrLayout({ children }) {
     // }, [role, menuRendering])
     // setMenuRendering(adminMenu)
 
+    const handleLogout = async () => {
+        console.log("1");
+        await AsyncStorage.clear();
+        console.log("2");
+        navigate('/')
+    }
+
+    const doctorMenu = [
+        {
+            name: 'Home',
+            path: '/home',
+            icon: 'ri-home-line'
+        },
+        {
+            name: 'Chats',
+            path: '/chats',
+            icon: 'ri-chat-1-fill'
+        },
+        {
+            name: 'List of Doctors',
+            path: '/doctors-list',
+            icon: 'ri-video-chat-line'
+        },
+        {
+            name: 'Appointments List',
+            path: '/appointments-list',
+            icon: 'ri-file-list-line'
+        },
+        // {
+        //     name: 'Profile',
+        //     path: '/srdoctor/profile',
+        //     icon: 'ri-user-line'
+        // },
+        {
+            name: 'Resources',
+            path: '/resources',
+            icon: 'ri-database-line'
+        }
+    ]
     const DoctormenuRendering = doctorMenu
 
     return (
@@ -226,7 +218,7 @@ function SrLayout({ children }) {
                             </Badge>
 
                             {/* when if we create a user or doctor then we it will directly visible here */}
-                            <Link className='anchor mx-2' to='/doctor/profile'> Sr Doctor</Link>
+                            <Link className='anchor mx-2' to='/srdoctor/profile'> Sr Doctor</Link>
 
                             <Button className="anchor mx-2" onClick={handleLogout}>Logout </Button>
                         </div>

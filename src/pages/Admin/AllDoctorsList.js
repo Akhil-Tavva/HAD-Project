@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react' 
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import ModeratorLayout from '../../components/ModeratorLayout'
 import { showLoading, hideLoading } from '../../redux/alertsSlice'
@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import AdminLayout from '../../components/AdminLayout'
 import {url} from '../../const'
 
-function DoctorsList() {
+function AllDoctorsList() {
     const [doctors, setDoctors] = React.useState([])
     const dispatch = useDispatch()
     const [role, setRole] = useState('')
@@ -115,13 +115,13 @@ function DoctorsList() {
         <>
             {role === 'ADMIN' ? (
                 <AdminLayout>
-                    <h1 className='page-header'> Doctors List</h1>
+                    <h1 className='page-header'>All Doctors List</h1>
                     <Table columns={columns} dataSource={sampleData1}/>
                 </AdminLayout>
                 
             ) : (
                 <ModeratorLayout>
-                    <h1 className='page-header'> Doctors List</h1>
+                    <h1 className='page-header'>All Doctors List</h1>
                     <Table columns={columns} dataSource={sampleData1}/>
                 </ModeratorLayout>
             )}
@@ -130,4 +130,4 @@ function DoctorsList() {
     )
 }
 
-export default DoctorsList
+export default AllDoctorsList

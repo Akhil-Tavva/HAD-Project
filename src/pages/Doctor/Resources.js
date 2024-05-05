@@ -1,16 +1,28 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form } from 'antd'
 import Layout from '../../components/Layout'
+import SrLayout from '../../components/SrDoctorLayout'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { hideLoading, showLoading } from '../../redux/alertsSlice';
 import '../../Layout.css'
 import axios from 'axios';
-import { url } from '../../const';
+import { url } from '../../const'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 
 function Resources() {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const [role, setRole] = useState('')
+    const Userdetails = AsyncStorage.getItem('Role');
+    async function someFunction() {
+        await Userdetails.then((res) => setRole(res)); // Assuming promiseObject is your Promise
+    }
+    someFunction()
+    console.log('User Role: ', role)
+
+
     const onFinish = async (values) => {
         dispatch(showLoading())
         const response = await axios.post(url + '/', values)
@@ -50,15 +62,29 @@ function Resources() {
 
 
     return (
-        <Layout>
-            <h2>Add Resource</h2>
-            {/* <p> For User Name: </p> */}
-            <Form onsubmit="submitResource(); return false;">
-                <label for="videoLink">YouTube Video Link:</label>
-                <input type="text" id="videoLink" class="input-field" placeholder="Enter YouTube video link" required />
-                <button type="submit" class="submit-button">Submit</button>
-            </Form>
-        </Layout>
+        <>
+            {role === 'DOCTOR' ? (
+                <Layout>
+                    <h2>Add Resource</h2>
+                    {/* <p> For User Name: </p> */}
+                    <Form onsubmit="submitResource(); return false;">
+                        <label for="videoLink">YouTube Video Link:</label>
+                        <input type="text" id="videoLink" class="input-field" placeholder="Enter YouTube video link" required />
+                        <button type="submit" class="submit-button">Submit</button>
+                    </Form>
+                </Layout>
+            ) : (
+                <SrLayout>
+                    <h2>Add Resource</h2>
+                    {/* <p> For User Name: </p> */}
+                    <Form onsubmit="submitResource(); return false;">
+                        <label for="videoLink">YouTube Video Link:</label>
+                        <input type="text" id="videoLink" class="input-field" placeholder="Enter YouTube video link" required />
+                        <button type="submit" class="submit-button">Submit</button>
+                    </Form>
+                </SrLayout>
+            )}
+        </>
     )
 }
 

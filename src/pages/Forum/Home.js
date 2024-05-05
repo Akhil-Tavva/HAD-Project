@@ -57,12 +57,43 @@ function Home() {
         <>
             {role === 'ADMIN' ? (
                 <AdminLayout>
+                    {/* {groups.map(post => ( <ForumCard name={post.name} /> ))} */}
+
                     <ForumCard name={'Group Name1'}/>
                     <ForumCard name={'Group Name1'}/>
                     <ForumCard name={'Group Name1'}/>
                     <ForumCard name={'Group Name1'}/>
                 </AdminLayout>
-            ) : role === 'SENIOR_DOCTOR' ? (
+            ) : role === 'DOCTOR' ? (
+                <Layout>
+                    
+                    <ForumCard name={'Group Name1'}/>
+                    <ForumCard name={'Group Name2'}/>
+                    <ForumCard name={'Group Name3'}/>
+                    <ForumCard name={'Group Name4'}/>
+
+                </Layout>
+            ) : role === 'MODERATOR' ? (
+                <ModeratorLayout>
+                    <Link to='/createforum' >
+                        <button className='create-post'> Create Forum</button>
+                    </Link>
+                    <Link to='/deleteforum' >
+                        <button className='create-post'> Delete Forum</button>
+                    </Link>
+                    <Link to='/deleteforum' >
+                        <button className='create-post'> See Flags</button>
+                    </Link>
+                    <hr />
+
+                    {/* {groups.map(post => ( <ForumCard name={post.name} /> ))} */}
+                    
+                    <ForumCard name={'Group Name1'}/>
+                    <ForumCard name={'Group Name2'}/>
+                    <ForumCard name={'Group Name3'}/>
+                    <ForumCard name={'Group Name4'}/>
+                </ModeratorLayout>
+            ) : (
                 <SeniorDoctorLayout>
                     <h2>Forums</h2>
                     <hr />
@@ -72,30 +103,6 @@ function Home() {
                     <ForumCard name={'Group Name4'}/>
 
                 </SeniorDoctorLayout>
-            ) : role === 'MODERATOR' ? (
-                <ModeratorLayout>
-                    <Link to='/createforum' >
-                        <button className='create-post'> Create Forum</button>
-                    </Link>
-                    <Link to='/deleteforum' >
-                        <button className='create-post'> Delete Forum</button>
-                    </Link>
-                    <hr />
-
-                    <ForumCard />
-                    <ForumCard />
-                    <ForumCard />
-                    <ForumCard />
-                </ModeratorLayout>
-            ) : (
-                <Layout>
-                    <h2>Forums</h2>
-                    <hr />
-                    <ForumCard name={'Group Name1'}/>
-                    <ForumCard name={'Group Name2'}/>
-                    <ForumCard name={'Group Name3'}/>
-                    <ForumCard name={'Group Name4'}/>
-                </Layout>
             )}
         </>
     );

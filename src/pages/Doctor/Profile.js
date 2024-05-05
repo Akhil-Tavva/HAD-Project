@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { showLoading } from '../../redux/alertsSlice'
 import axios from 'axios'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import SrLayout from '../../components/SrDoctorLayout'
 
 function Profile() {
     const { user } = useSelector((state) => state.user)
@@ -31,19 +32,19 @@ function Profile() {
 
     return (
         <>
-            {role === 'ADMIN' ? (
-                <AdminLayout>
-                    <h1 className='page-title'> Doctor profile</h1>
-                    <hr />
-                    <DoctorForm onFinish={onFinish} />
-                </AdminLayout>
-
-            ) : (
+            {role === 'DOCTOR' ? (
                 <Layout>
                     <h1 className='page-title'> Doctor profile</h1>
                     <hr />
                     <DoctorForm onFinish={onFinish} />
                 </Layout>
+
+            ) : (
+                <SrLayout>
+                    <h1 className='page-title'> Doctor profile</h1>
+                    <hr />
+                    <DoctorForm onFinish={onFinish} />
+                </SrLayout>
             )}
 
         </>
