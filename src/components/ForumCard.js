@@ -1,23 +1,16 @@
 import React from 'react'
-// import Layout from './Layout'
-// import AdminLayout from './AdminLayout'
-// import ModeratorLayout from './ModeratorLayout' 
 import './PostCard.css'
 import { Link, useNavigate } from 'react-router-dom'
-// import { useDispatch } from 'react-redux'
 
 const ForumCard = ({ name }) => {
-    const navigate = useNavigate() 
-    const forumName = name
-    // const dispatch = useDispatch()
-    // console.log('Forum Card: ',ForumName)
-
+    const navigate = useNavigate()
     const handleGroupCardClick = () => {
-        // Navigate to the Forum page
-        navigate(`/forum/${forumName}`)
-        console.log('Forum Card: ',forumName)
-
+        onForumClick(name);
     };
+    const onForumClick = (name) => {
+        navigate(`/forum/${name}`)
+    };
+
     return (
         <div className="group-card" onClick={handleGroupCardClick}>
             <div className="group-avatar">

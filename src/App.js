@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux'
 import {Toaster} from "react-hot-toast"
 
 import Login from "./pages/Login";
-import ForumDetailsPage from "./pages/Forum/ForumDetailsPage";
+import ForumDetails from './pages/Forum/ForumDetails'
 import Home from "./pages/Forum/Home";
 import Notifications from "./pages/Notifications";
 // import ProtectedRoute from "./components/ProtectedRoute";
@@ -44,7 +44,7 @@ function App() {
         <Route path="/ForgetPassword" element={<ForgetPassword />}/>
         <Route path="/UpdatePassword" element={<UpdatePassword />}/>
         <Route path="/home" element={<Home/>}/>
-        <Route path="/forum/:Forumname" element={<ForumDetailsPage />}/>
+        <Route path="/forum/:name" element={<ForumDetails />}/>
         <Route path="/notifications" element={<Notifications />}/>
         <Route path="/doctor/profile" element={<Profile />}/>
         <Route path="/srdoctor/profile" element={<Profile />}/>

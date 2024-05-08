@@ -7,7 +7,7 @@ import Editor from './Editor'
 import '../../components/PostCard.css' 
 import axios from 'axios'
 import toast from 'react-hot-toast' 
-import {url, customHeaders} from '../../const'
+import {url, customHeaders} from '../../const' 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CreateForum = ({ addPost }) => {

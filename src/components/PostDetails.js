@@ -26,7 +26,7 @@ function PostDetails({ postId }) {
         // Fetch the post details based on postId
         const fetchPostDetails = async () => {
             try {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+                axios.defaults.headers.common['Authorization'] = `Bearer ${AsyncStorage.getItem('token')}`;
                 const response = await axios.post(url + `forum/${postId}`);
                 setPost(response.data); // Assuming the response contains the post details
             } catch (error) {

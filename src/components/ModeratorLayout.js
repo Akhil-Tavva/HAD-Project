@@ -88,16 +88,16 @@ function Layout({ children }) {
             path: '/all-doctors-list',
             icon: 'ri-user-star-line'
         },
-        {
-            name: 'Profile',
-            path: '/admin/profile',
-            icon: 'ri-user-line'
-        },
-        {
-            name: 'Add Doctor',
-            path: '/moderator/add-doctor',
-            icon: 'ri-login-box-line'
-        },
+        // {
+        //     name: 'Profile',
+        //     path: '/admin/profile',
+        //     icon: 'ri-user-line'
+        // },
+        // {
+        //     name: 'Add Doctor',
+        //     path: '/add-doctor',
+        //     icon: 'ri-login-box-line'
+        // },
     ];
 
     const handleLogout = async () => {

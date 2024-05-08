@@ -1,4 +1,38 @@
-/* Chats.css */
+/* Chats.css
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.chat-details {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.input-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #f4f4f4;
+  position: sticky;
+  bottom: 0;
+}
+
+.input-bar input {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.input-bar button {
+  padding: 8px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+} */
 
 .chat-container {
     display: flex;
@@ -60,3 +94,31 @@
     background-color: #F0F0F0;
   }
   
+  /* CSS for ChatInputBar component */
+.chat-input-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f4f4f4;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.chat-input-bar input {
+  flex: 1;
+  margin-right: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.chat-input-bar button {
+  padding: 8px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}

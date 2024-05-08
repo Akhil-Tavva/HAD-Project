@@ -5,7 +5,7 @@ import SeniorDoctorLayout from '../../components/SrDoctorLayout'
 import AdminLayout from '../../components/AdminLayout'
 import ModeratorLayout from '../../components/ModeratorLayout'
 import PostCard from '../../components/PostCard'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import '../../components/PostCard.css'
 // import { hideLoading, showLoading } from '../../redux/alertsSlice'
 // import { useDispatch } from 'react-redux'
@@ -14,31 +14,36 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { url, customHeaders } from '../../const'
 
 
-function Forum({ ForumName }) {
+function ForumDetails() {
+    const { name } = useParams()
     const [posts, setPosts] = useState([]);
     // const [selectedPost, setSelectedPost] = useState(null);
     const [role, setRole] = useState('');
+    // const [forumName, setforumName] = useState(name);
     // const dispatch = useDispatch()
 
     // const handlePostSelect = (post) => {
     //     console.log('handle post')
     //     // setSelectedPost(post);
     // };
-
+    // console.log('Name of forum: ', forumName)
+    // console.log('Name of forum1: ', name)
     const addPost = newPost => {
         setPosts([...posts, { ...newPost, id: posts.length + 1 }]);
     };
 
-
-
+    // console.log('Forum Name in Forum Detail.js file: ', name)
     useEffect(() => {
         const fetchForumDetails = async () => {
             try {
-
                 axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
                 // const response = await axios.get('http://localhost:8080/forum/')
-                const response = await axios.get(url + `/forum/` + ForumName, {
-                    headers: customHeaders
+                // const token = await AsyncStorage.getItem('token')
+                const response = await axios.get(url + `/forum/` + name, {
+                    headers: {
+                        // 'Authorization': `Bearer ${token}`,
+                        customHeaders,
+                    }
                 });
                 console.log(response.data)
                 setPosts(response.data.payload)
@@ -61,7 +66,7 @@ function Forum({ ForumName }) {
             }
         }
         fetchForumDetails();
-    }, [ForumName]);
+    }, [name]);
 
     const Userdetails = AsyncStorage.getItem('Role');
     async function someFunction() {
@@ -94,7 +99,7 @@ function Forum({ ForumName }) {
                     <Link to="/yourposts" >
                         <button className='create-post'>Your Posts</button>
                     </Link>
-                    <p>{ForumName}</p>
+                    <p>{name}</p>
                     <hr />
                     <div className="post-list">
                         {postData.map(post => (
@@ -153,7 +158,7 @@ function Forum({ ForumName }) {
                     <Link to="/newpost" addPost={addPost} >
                         <button className='create-post'>delete forum </button>
                     </Link>
-
+                    <h2> {name} </h2>
                     <hr />
                     <div className="post-list">
                         {postData.map(post => (
@@ -204,7 +209,7 @@ function Forum({ ForumName }) {
     );
 }
 
-export default Forum
+export default ForumDetails
 
 // IF THE POST IS THE USER, THEN THE OPTIONS SHOULD BE
 // 1. EDIT POST

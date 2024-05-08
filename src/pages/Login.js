@@ -29,7 +29,7 @@ function Login() {
       } else {
         console.log("This is doctor")
         // Default login for other roles
-        response = await axios.post(url + '/auth/login', values);
+        response = await axios.post(url + '/auth/doctor-login', values);
       }
 
       dispatch(hideLoading());

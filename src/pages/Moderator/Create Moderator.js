@@ -138,6 +138,7 @@ const AddModeratorForm = () => {
                     customHeaders,
                 }
             });
+            toast.success(response.data.message);
             console.log('Moderator added successfully:', response.data);
             // Clear form after successful submission
             setFormData({

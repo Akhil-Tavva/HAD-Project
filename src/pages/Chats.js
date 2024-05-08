@@ -4,54 +4,55 @@ import SrLayout from '../components/SrDoctorLayout';
 import './Chats.css'
 import { url } from '../const';
 import axios from 'axios'
-// import { showLoading, hideLoading } from '../redux/alertsSlice';
-// import { Link, useNavigate } from 'react-router-dom'
-// import { useDispatch } from 'react-redux';
 import toast from 'react-hot-toast'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import ChatInputBar from '../components/ChatInputBar'; // Import the ChatInputBar component
 
 function Chats() {
-    // const dispatch = useDispatch();
-    // const navigate = useNavigate();
     const [chats, setChats] = useState([]);
     const [selectedChat, setSelectedChat] = useState(null)
     const [role, setRole] = useState('')
     const Userdetails = AsyncStorage.getItem('Role');
-    async function someFunction() {
-        await Userdetails.then((res) => setRole(res)); // Assuming promiseObject is your Promise
-    }
-    someFunction()
-    console.log('User Role: ', role)
 
-    const getData = async () => {
-        try {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-            // const response = await axios.get('http://localhost:8080/forum/')
-            const response = await axios.get(url + '/api/chat');
-            console.log(response.data)
-            setChats(response.data.payload)
-            console.log(chats)
-        } catch (error) {
-            if (error.response) {
-                // The request was made and the server responded with a status code
-                console.error('Server responded with status:', error.response.status);
-                console.error('Response data:', error.response.data);
-                toast.error('Server Error: ' + error.response.data.message);
-            } else if (error.request) {
-                // The request was made but no response was received
-                console.error('No response received:', error.request);
-                toast.error('No response from server');
-            } else {
-                // Something else happened while setting up the request
-                console.error('Error setting up request:', error.message);
-                toast.error('Error setting up request');
+    // Function to get user role
+    const getUserRole = async () => {
+        const userRole = await AsyncStorage.getItem('Role');
+        setRole(userRole);
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Fetch chat data from API
+                const response = await axios.get(url + '/api/chat');
+                setChats(response.data.payload);
+            } catch (error) {
+                handleFetchError(error);
             }
-        }
-    }
+        };
 
-    // useEffect(() => {
-    //     getData()
-    // }, [])
+        fetchData();
+        getUserRole();
+    }, []);
+
+    const handleFetchError = (error) => {
+        if (error.response) {
+            console.error('Server responded with status:', error.response.status);
+            console.error('Response data:', error.response.data);
+            toast.error('Server Error: ' + error.response.data.message);
+        } else if (error.request) {
+            console.error('No response received:', error.request);
+            toast.error('No response from server');
+        } else {
+            console.error('Error setting up request:', error.message);
+            toast.error('Error setting up request');
+        }
+    };
+
+    const handleSendMessage = (message) => {
+        // Implement sending message functionality here
+        console.log('Sending message:', message);
+    };
 
     const chatData = [
         {
@@ -129,6 +130,7 @@ function Chats() {
                                     ))}
                                 </div>
                             )}
+                            <ChatInputBar className='chat-input-bar' onSendMessage={handleSendMessage} />
                         </div>
                     </div>
                 </Layout>
@@ -154,6 +156,7 @@ function Chats() {
                                     ))}
                                 </div>
                             )}
+                            <ChatInputBar className='chat-input-bar' onSendMessage={handleSendMessage} />
                         </div>
                     </div>
                 </SrLayout>

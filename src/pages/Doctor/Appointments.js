@@ -2,17 +2,15 @@ import React, { useState, useEffect } from 'react'
 // import {useDispatch} from 'react-redux'
 import Layout from '../../components/Layout'
 import SrLayout from '../../components/SrDoctorLayout'
-// import {showLoading, hideLoading} from '../../redux/alertsSlice'
 import { toast } from 'react-hot-toast'
 import axios from 'axios'
 import { Table } from 'antd'
 import moment from 'moment'
-import { url } from '../../const'
+import { customHeaders, url } from '../../const'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 function Appointments() {
     const [appointments, setAppointments] = useState([])
-    // const dispatch = useDispatch()
     const [role, setRole] = useState('')
     const Userdetails = AsyncStorage.getItem('Role');
     async function someFunction() {
@@ -25,7 +23,10 @@ function Appointments() {
         try {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
             // const response = await axios.get('http://localhost:8080/forum/')
-            const response = await axios.get(url + '/forum/');
+            const response = await axios.get(url + '/forum/', {
+                headers: customHeaders
+            });
+            toast.success(response.data.message)
             console.log(response.data)
             setAppointments(response.data.payload)
             console.log(appointments)
