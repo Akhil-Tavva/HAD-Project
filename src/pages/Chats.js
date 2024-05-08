@@ -49,9 +49,10 @@ function Chats() {
         }
     };
 
-    useEffect(() => {
-        getData()
-    }, [])
+    const handleSendMessage = (message) => {
+        // Implement sending message functionality here
+        console.log('Sending message:', message);
+    };
 
     const chatData = [
         {
