@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux'
 import {Toaster} from "react-hot-toast"
 
 import Login from "./pages/Login";
-import Forum from "./pages/Forum/Forum";
+import ForumDetailsPage from "./pages/Forum/ForumDetailsPage";
 import Home from "./pages/Forum/Home";
 import Notifications from "./pages/Notifications";
 // import ProtectedRoute from "./components/ProtectedRoute";
@@ -24,6 +24,7 @@ import PostDetailsPage from "./pages/Forum/PostDetailsPage";
 import Resources from "./pages/Doctor/Resources";
 import DoctorsList from "./pages/Sr Doctor/DoctorList";
 import UsersList from "./pages/Sr Doctor/UsersList";
+import CreateModerator from "./pages/Moderator/Create Moderator";
 
 function App() {
   const {loading} = useSelector(state => state.alerts); // change intial state loading as true in alertsSlice.js file to get spinner
@@ -43,7 +44,7 @@ function App() {
         <Route path="/ForgetPassword" element={<ForgetPassword />}/>
         <Route path="/UpdatePassword" element={<UpdatePassword />}/>
         <Route path="/home" element={<Home/>}/>
-        <Route path="/forum" element={<Forum/>}/>
+        <Route path="/forum/:Forumname" element={<ForumDetailsPage />}/>
         <Route path="/notifications" element={<Notifications />}/>
         <Route path="/doctor/profile" element={<Profile />}/>
         <Route path="/srdoctor/profile" element={<Profile />}/>
@@ -59,6 +60,8 @@ function App() {
         <Route path="/resources" element={<Resources />}/>
         <Route path="/doctors-list" element={<DoctorsList />}/>
         <Route path="/users-list" element={<UsersList />}/>
+        <Route path="/create-moderator" element={<CreateModerator />}/>
+
       </Routes>
     </BrowserRouter>
   );

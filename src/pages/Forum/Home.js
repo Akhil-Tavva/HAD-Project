@@ -18,6 +18,11 @@ function Home() {
 
     const getData = async () => {
         try {
+            const token1 = await AsyncStorage.getItem("token");
+
+            console.log("Async " +token1)
+            const token2 = await localStorage.getItem('token')
+            console.log('local '+ token2)
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
             // const response = await axios.get('http://localhost:8080/forum/')
             const response = await axios.get(url + '/forum/', {

@@ -1,150 +1,191 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Input, Button } from 'antd';
-import AdminLayout from '../../components/AdminLayout'
-import ModeratorLayout from '../../components/ModeratorLayout'
+import AdminLayout from '../../components/AdminLayout';
+import ModeratorLayout from '../../components/ModeratorLayout';
 import './AddDoctor.css';
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { showLoading, hideLoading } from '../../redux/alertsSlice';
 import axios from 'axios';
-import { url } from '../../const'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { url } from '../../const';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// doubt
+// see tha integration from create moderator file
 const AddDoctor = () => {
-  const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const [role, setRole] = useState('')
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [role, setRole] = useState('');
+  const [formData, setFormData] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    phoneNo: '',
+    specialization: ''
+  });
 
-  const onFinish = async (values) => {
-    setLoading(true);
-    // Here you can implement the logic to add the new doctor, like making an API call
-    dispatch(showLoading())
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-    // const response = await axios.get('http://localhost:8080/auth/')
-    const response = await axios.post(url + '/admin/doctor/', values)
-    dispatch(hideLoading())
-  }
-
-  const Userdetails = AsyncStorage.getItem('Role');
-    async function someFunction() {
-        await Userdetails.then((res) => setRole(res)); // Assuming promiseObject is your Promise
+  useEffect(() => {
+    async function getUserRole() {
+      const userRole = await AsyncStorage.getItem('Role');
+      setRole(userRole);
     }
-    someFunction()
-    console.log('User Role: ', role)
+    getUserRole();
+  }, []);
 
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    dispatch(showLoading());
+    try {
+      const response = await axios.post(url + '/admin/doctor/', formData);
+      console.log(response.data);
+      // Navigate or perform further actions after successful submission
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+      dispatch(hideLoading());
+    }
+  };
 
   return (
     <>
       {role === 'ADMIN' ? (
         <AdminLayout>
-          <h1>Add New Doctor</h1>
-          <Form form={form} layout="vertical" onFinish={onFinish}>
-            <Form.Item
-              label="First Name"
-              name="firstname"
-              rules={[{ required: true, message: 'Please input the name!' }]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              label="Last Name"
-              name="lastname"
-              rules={[{ required: true, message: 'Please input the name!' }]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[
-                { required: true, message: 'Please input the email!' },
-                { type: 'email', message: 'Please enter a valid email address!' }
-              ]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              label="Phone Number"
-              name="phoneNo"
-              rules={[{ required: true, message: 'Please input phone number!' }]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              label="Specialization"
-              name="specialization"
-              rules={[{ required: true, message: 'Please input the specialization!' }]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item>
-              <Button type="primary" htmlType="submit" loading={loading}>
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
+          
+            <h2>Add New Doctor</h2>
+            <form className="form" onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="firstName">First Name:</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstname"
+                  value={formData.firstname}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="lastName">Last Name:</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastname"
+                  value={formData.lastname}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="phoneNo">Phone Number:</label>
+                <input
+                  type="tel"
+                  id="phoneNo"
+                  name="phoneNo"
+                  value={formData.phoneNo}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="specialization">Specialization:</label>
+                <input
+                  type="text"
+                  id="specialization"
+                  name="specialization"
+                  value={formData.specialization}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <button type="submit" disabled={loading}>
+                {loading ? 'Submitting...' : 'Submit'}
+              </button>
+            </form>
+          
         </AdminLayout>
       ) : (
         <ModeratorLayout>
-          <h1>Add New Doctor</h1>
-          <Form form={form} layout="vertical" onFinish={onFinish}>
-            <Form.Item
-              label="First Name"
-              name="firstname"
-              rules={[{ required: true, message: 'Please input the name!' }]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              label="Last Name"
-              name="lastname"
-              rules={[{ required: true, message: 'Please input the name!' }]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              label="Email"
-              name="email"
-              rules={[
-                { required: true, message: 'Please input the email!' },
-                { type: 'email', message: 'Please enter a valid email address!' }
-              ]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              label="Phone Number"
-              name="phoneNo"
-              rules={[{ required: true, message: 'Please input phone number!' }]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              label="Specialization"
-              name="specialization"
-              rules={[{ required: true, message: 'Please input the specialization!' }]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item>
-              <Button type="primary" htmlType="submit" loading={loading}>
-                Submit
-              </Button>
-            </Form.Item>
-          </Form>
+          
+            <h2>Add New Doctor</h2>
+            <form className="form" onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="firstName">First Name:</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="firstname"
+                  value={formData.firstname}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="lastName">Last Name:</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  name="lastname"
+                  value={formData.lastname}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="phoneNo">Phone Number:</label>
+                <input
+                  type="tel"
+                  id="phoneNo"
+                  name="phoneNo"
+                  value={formData.phoneNo}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="specialization">Specialization:</label>
+                <input
+                  type="text"
+                  id="specialization"
+                  name="specialization"
+                  value={formData.specialization}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <button type="submit" disabled={loading}>
+                {loading ? 'Submitting...' : 'Submit'}
+              </button>
+            </form>
         </ModeratorLayout>
       )}
     </>

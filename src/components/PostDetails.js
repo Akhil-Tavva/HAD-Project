@@ -31,7 +31,7 @@ function PostDetails({ postId }) {
                 setPost(response.data); // Assuming the response contains the post details
             } catch (error) {
                 console.error('Error fetching post details:', error);
-                // Handle error
+                // Handle error 
             }
         };
         fetchPostDetails();

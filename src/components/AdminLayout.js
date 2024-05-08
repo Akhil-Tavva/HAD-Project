@@ -38,11 +38,11 @@ function AdminLayout({ children }) {
             path: '/all-doctors-list',
             icon: 'ri-user-star-line'
         },
-        // {
-        //     name: 'Profile',
-        //     path: '/admin/profile',
-        //     icon: 'ri-user-line'
-        // },
+        {
+            name: 'Create Moderator',
+            path: '/create-moderator',
+            icon: 'ri-user-line'
+        },
         {
             name: 'Add Doctor',
             path: '/add-doctor',

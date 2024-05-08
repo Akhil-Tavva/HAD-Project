@@ -1,4 +1,4 @@
-.form-container {
+.moderator-form-container {
     max-width: 400px;
     margin: auto;
     padding: 20px;
@@ -17,7 +17,7 @@
   
   input[type='text'],
   input[type='email'],
-  input[type='tel'] {
+  input[type='password'] {
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -35,12 +35,7 @@
     cursor: pointer;
   }
   
-  button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  button:hover:not(:disabled) {
+  button:hover {
     background-color: #0056b3;
   }
   

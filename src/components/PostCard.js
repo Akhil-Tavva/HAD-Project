@@ -4,8 +4,8 @@ import { Button,Flex } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 
 const PostCard = ({ id, content, initialLikes }) => {
-    const [likes, setLikes] = useState(initialLikes);
-    const navigate = useNavigate();
+    const [likes, setLikes] = useState(initialLikes)
+    const navigate = useNavigate()
     const [liked, setLiked] = useState(false);
 
     const handleLike = () => {

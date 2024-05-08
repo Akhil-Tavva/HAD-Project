@@ -8,11 +8,15 @@ import { Link, useNavigate } from 'react-router-dom'
 
 const ForumCard = ({ name }) => {
     const navigate = useNavigate() 
+    const forumName = name
     // const dispatch = useDispatch()
+    // console.log('Forum Card: ',ForumName)
 
     const handleGroupCardClick = () => {
         // Navigate to the Forum page
-        navigate('/forum');
+        navigate(`/forum/${forumName}`)
+        console.log('Forum Card: ',forumName)
+
     };
     return (
         <div className="group-card" onClick={handleGroupCardClick}>
@@ -21,8 +25,8 @@ const ForumCard = ({ name }) => {
             </div>
             <div className="group-info">
                 <h1 className="group-name">{name}</h1>
-                <p className="group-description">Group Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <p className="group-members">Max Members: 100</p>
+                {/* <p className="group-description">Group Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <p className="group-members">Max Members: 100</p> */}
             </div>
         </div>
     )

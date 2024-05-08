@@ -1,15 +1,15 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import PostDetails from '../../components/PostDetails'
+import ForumDetails from './ForumDetails'
 
 function PostDetailsPage() {
-    const { postId } = useParams() // Fetch the postId from URL params
+    const { name } = useParams(); // Fetch the forum name from URL params
     // Fetch the post details based on postId, you can use Redux, Axios, or any other method
-    console.log(postId)
+    console.log("Forum Details page: ", name)
     return (
         <div>
             {/* <h2>Post Details</h2> */}
-            <PostDetails postId={postId} />
+            <ForumDetails ForumName={ name } />
         </div>
     );
 }

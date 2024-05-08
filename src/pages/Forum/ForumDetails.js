@@ -11,10 +11,10 @@ import '../../components/PostCard.css'
 // import { useDispatch } from 'react-redux'
 import toast from 'react-hot-toast'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import { url } from '../../const'
+import { url, customHeaders } from '../../const'
 
 
-function Forum({ forumId }) {
+function Forum({ ForumName }) {
     const [posts, setPosts] = useState([]);
     // const [selectedPost, setSelectedPost] = useState(null);
     const [role, setRole] = useState('');
@@ -29,35 +29,39 @@ function Forum({ forumId }) {
         setPosts([...posts, { ...newPost, id: posts.length + 1 }]);
     };
 
-    const getData = async () => {
-        try {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
-            // const response = await axios.get('http://localhost:8080/forum/')
-            const response = await axios.get(url + '/forum/');
-            console.log(response.data)
-            setPosts(response.data.payload)
-            console.log(posts)
-        } catch (error) {
-            if (error.response) {
-                // The request was made and the server responded with a status code
-                console.error('Server responded with status:', error.response.status);
-                console.error('Response data:', error.response.data);
-                toast.error('Server Error: ' + error.response.data.message);
-            } else if (error.request) {
-                // The request was made but no response was received
-                console.error('No response received:', error.request);
-                toast.error('No response from server');
-            } else {
-                // Something else happened while setting up the request
-                console.error('Error setting up request:', error.message);
-                toast.error('Error setting up request');
-            }
-        }
-    }
+
 
     useEffect(() => {
-        getData()
-    }, [])
+        const fetchForumDetails = async () => {
+            try {
+
+                axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+                // const response = await axios.get('http://localhost:8080/forum/')
+                const response = await axios.get(url + `/forum/` + ForumName, {
+                    headers: customHeaders
+                });
+                console.log(response.data)
+                setPosts(response.data.payload)
+                console.log(posts)
+            } catch (error) {
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    console.error('Server responded with status:', error.response.status);
+                    console.error('Response data:', error.response.data);
+                    toast.error('Server Error: ' + error.response.data.message);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    console.error('No response received:', error.request);
+                    toast.error('No response from server');
+                } else {
+                    // Something else happened while setting up the request
+                    console.error('Error setting up request:', error.message);
+                    toast.error('Error setting up request');
+                }
+            }
+        }
+        fetchForumDetails();
+    }, [ForumName]);
 
     const Userdetails = AsyncStorage.getItem('Role');
     async function someFunction() {
@@ -90,12 +94,13 @@ function Forum({ forumId }) {
                     <Link to="/yourposts" >
                         <button className='create-post'>Your Posts</button>
                     </Link>
+                    <p>{ForumName}</p>
                     <hr />
                     <div className="post-list">
                         {postData.map(post => (
                             <PostCard
                                 id={post.id}
-                                // name={post.name}
+                                name={post.name}
                                 content={post.content}
                                 initialLikes={post.like}
                             // onClick={() => handlePostSelect(post)}
@@ -148,7 +153,7 @@ function Forum({ forumId }) {
                     <Link to="/newpost" addPost={addPost} >
                         <button className='create-post'>delete forum </button>
                     </Link>
-                    
+
                     <hr />
                     <div className="post-list">
                         {postData.map(post => (
