@@ -48,9 +48,9 @@ function Home() {
         }
     }
 
-    useEffect(() => {
-        getData()
-    }, [])
+    // useEffect(() => {
+    //     getData()
+    // }, [])
 
     const Userdetails = AsyncStorage.getItem('Role');
     async function someFunction() {
