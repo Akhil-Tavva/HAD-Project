@@ -72,8 +72,8 @@ function Login() {
               {/* Add more options as needed */}
             </Select>
           </Form.Item>
-          <Form.Item label='Email' name='email'>
-            <Input placeholder='Email' />
+          <Form.Item label='Username' name='username'>
+            <Input placeholder='Username' />
           </Form.Item>
 
           <Form.Item label='Password' name='password'>

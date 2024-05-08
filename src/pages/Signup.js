@@ -39,7 +39,7 @@ function Signup() {
                         <Input placeholder='Name'/>
                     </Form.Item>
 
-                    <Form.Item label='Email' name='email'>
+                    <Form.Item label='Email' name='username'>
                         <Input placeholder='Email'/>
                     </Form.Item>
 

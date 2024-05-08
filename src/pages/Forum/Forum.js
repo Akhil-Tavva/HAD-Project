@@ -11,7 +11,7 @@ import '../../components/PostCard.css'
 // import { useDispatch } from 'react-redux'
 import toast from 'react-hot-toast'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import {url} from '../../const'
+import { url } from '../../const'
 
 
 function Forum({ forumId }) {
@@ -33,7 +33,7 @@ function Forum({ forumId }) {
         try {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
             // const response = await axios.get('http://localhost:8080/forum/')
-            const response = await axios.get(url+'/forum/');
+            const response = await axios.get(url + '/forum/');
             console.log(response.data)
             setPosts(response.data.payload)
             console.log(posts)
@@ -61,7 +61,7 @@ function Forum({ forumId }) {
 
     const Userdetails = AsyncStorage.getItem('Role');
     async function someFunction() {
-        await Userdetails.then((res) => setRole(res)); 
+        await Userdetails.then((res) => setRole(res));
     }
     someFunction()
     // console.log('User Role: ',role)
@@ -84,112 +84,115 @@ function Forum({ forumId }) {
         <>
             {role === 'ADMIN' ? (
                 <AdminLayout>
-                    <div className='post-container'>
-                        <Link to="/newpost" addPost={addPost} >
-                            <button className='create-post'>Create Post</button>
-                        </Link>
-                        <Link to="/yourposts" >
-                            <button className='create-post'>Your Posts</button>
-                        </Link>
-                        <hr />
-                        <div className="post-list">
-                            {postData.map(post => (
-                                <PostCard
-                                    id={post.id}
-                                    // name={post.name}
-                                    content={post.content}
-                                    initialLikes={post.like}
-                                    // onClick={() => handlePostSelect(post)}
-                                />
-                            ))}
-                        </div>
+                    <Link to="/newpost" addPost={addPost} >
+                        <button className='create-post'>Create Post</button>
+                    </Link>
+                    <Link to="/yourposts" >
+                        <button className='create-post'>Your Posts</button>
+                    </Link>
+                    <hr />
+                    <div className="post-list">
+                        {postData.map(post => (
+                            <PostCard
+                                id={post.id}
+                                // name={post.name}
+                                content={post.content}
+                                initialLikes={post.like}
+                            // onClick={() => handlePostSelect(post)}
+                            />
+                        ))}
+                    </div>
 
-                        {/* <div>
+                    {/* <div>
                             {selectedPost && <PostDetails post={selectedPost} />}
                         </div> */}
-                    </div>
-                </AdminLayout> 
+
+                </AdminLayout>
             ) : role === 'DOCTOR' ? (
                 <Layout>
-                    <div className='post-container'>
-                        <Link to="/newpost" addPost={addPost} >
-                            <button className='create-post'>Create Post</button>
-                        </Link>
-                        <Link to="/yourposts" >
-                            <button className='create-post'>Your Posts</button>
-                        </Link>
-                        <hr />
-                        <div className="post-list">
-                            {postData.map(post => (
-                                <PostCard
-                                    key={post.id}
-                                    name={post.name}
-                                    content={post.content}
-                                    initialLikes={post.like}
-                                    // onClick={() => handlePostSelect(post)}
-                                />
-                            ))}
-                        </div>
 
-                        {/* <div>
+                    <Link to="/newpost" addPost={addPost} >
+                        <button className='create-post'>Create Post</button>
+                    </Link>
+                    <Link to="/yourposts" >
+                        <button className='create-post'>Your Posts</button>
+                    </Link>
+                    <hr />
+                    <div className="post-list">
+                        {postData.map(post => (
+                            <PostCard
+                                key={post.id}
+                                name={post.name}
+                                content={post.content}
+                                initialLikes={post.like}
+                            // onClick={() => handlePostSelect(post)}
+                            />
+                        ))}
+                    </div>
+
+                    {/* <div>
                             {selectedPost && <PostDetails post={selectedPost} />}
                         </div> */}
-                    </div>
+
 
                 </Layout>
             ) : role === 'MODERATOR' ? (
                 <ModeratorLayout>
-                    <div className='post-container'>
-                        <Link to="/newpost" addPost={addPost} >
-                            <button className='create-post'>Create Post</button>
-                        </Link>
-                        <Link to="/yourposts" >
-                            <button className='create-post'>Your Posts</button>
-                        </Link>
-                        <hr />
-                        <div className="post-list">
-                            {postData.map(post => (
-                                <PostCard
-                                    key={post.id}
-                                    name={post.name}
-                                    content={post.content}
-                                    initialLikes={post.like}
-                                    // onClick={() => handlePostSelect(post)}
-                                />
-                            ))}
-                        </div>
+                    <Link to="/newpost" addPost={addPost} >
+                        <button className='create-post'>Create Post</button>
+                    </Link>
+                    <Link to="/yourposts" >
+                        <button className='create-post'>Your Posts</button>
+                    </Link>
 
-                        {/* <div>
+                    <Link to="/newpost" addPost={addPost} >
+                        <button className='create-post'>delete forum </button>
+                    </Link>
+                    
+                    <hr />
+                    <div className="post-list">
+                        {postData.map(post => (
+                            <PostCard
+                                key={post.id}
+                                name={post.name}
+                                content={post.content}
+                                initialLikes={post.like}
+                            // onClick={() => handlePostSelect(post)}
+                            />
+                        ))}
+                    </div>
+
+                    {/* <div>
                             {selectedPost && <PostDetails post={selectedPost} />}
                         </div> */}
-                    </div>
+
                 </ModeratorLayout>
             ) : (
                 <SeniorDoctorLayout>
-                    <div className='post-container'>
-                        <Link to="/newpost" addPost={addPost} >
-                            <button className='create-post'>Create Post</button>
-                        </Link>
-                        <Link to="/yourposts" >
-                            <button className='create-post'>Your Posts</button>
-                        </Link>
-                        <hr />
-                        <div className="post-list">
-                            {postData.map(post => (
-                                <PostCard
-                                    key={post.id}
-                                    name={post.name}
-                                    content={post.content}
-                                    initialLikes={post.like}
-                                    // onClick={() => handlePostSelect(post)}
-                                />
-                            ))}
-                        </div>
 
-                        {/* <div>
+                    <Link to="/newpost" addPost={addPost} >
+                        <button className='create-post'>Create Post</button>
+                    </Link>
+                    <Link to="/yourposts" >
+                        <button className='create-post'>Your Posts</button>
+                    </Link>
+                    <hr />
+                    <div className="post-list">
+                        {postData.map(post => (
+                            <PostCard
+                                key={post.id}
+                                name={post.name}
+                                content={post.content}
+                                initialLikes={post.like}
+                            // onClick={() => handlePostSelect(post)}
+                            />
+                        ))}
+                    </div>
+
+                    {/* <div>
                             {selectedPost && <PostDetails post={selectedPost} />}
                         </div> */}
-                    </div>
+
                 </SeniorDoctorLayout>
             )}
         </>

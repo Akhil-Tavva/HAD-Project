@@ -49,9 +49,9 @@ function Chats() {
         }
     }
 
-    useEffect(() => {
-        getData()
-    }, [])
+    // useEffect(() => {
+    //     getData()
+    // }, [])
 
     const chatData = [
         {

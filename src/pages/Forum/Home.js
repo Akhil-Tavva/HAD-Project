@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import ForumCard from '../../components/ForumCard';
 import toast from 'react-hot-toast'
 import axios from 'axios';
-import {url} from '../../const'
+import { url, customHeaders } from '../../const'
 
 function Home() {
     const navigate = useNavigate();
@@ -20,10 +20,12 @@ function Home() {
         try {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
             // const response = await axios.get('http://localhost:8080/forum/')
-            const response = await axios.get(url+'/forum/');
-            console.log(response.data)
+            const response = await axios.get(url + '/forum/', {
+                headers: customHeaders
+            });
+            console.log(response)
             setGroups(response.data.payload)
-            console.log(groups)
+            console.log('Groups: ',groups)
         } catch (error) {
             if (error.response) {
                 // The request was made and the server responded with a status code
@@ -48,7 +50,7 @@ function Home() {
 
     const Userdetails = AsyncStorage.getItem('Role');
     async function someFunction() {
-        await Userdetails.then((res) => setRole(res)); 
+        await Userdetails.then((res) => setRole(res));
     }
     someFunction()
     console.log('User Role: ', role)
@@ -57,20 +59,24 @@ function Home() {
         <>
             {role === 'ADMIN' ? (
                 <AdminLayout>
-                    {/* {groups.map(post => ( <ForumCard name={post.name} /> ))} */}
+                    {groups.map(forum => ( <ForumCard name={forum.name} /> ))}
 
-                    <ForumCard name={'Group Name1'}/>
-                    <ForumCard name={'Group Name1'}/>
-                    <ForumCard name={'Group Name1'}/>
-                    <ForumCard name={'Group Name1'}/>
+                    <ForumCard name={'Group Name1'} />
+                    {/* <ForumCard name={'Group Name1'} />
+                    <ForumCard name={'Group Name1'} />
+                    <ForumCard name={'Group Name1'} /> */}
                 </AdminLayout>
             ) : role === 'DOCTOR' ? (
                 <Layout>
+                    <h2>Forums</h2>
+                    <hr />
+
+                    {groups.map(forum => ( <ForumCard name={forum.name} /> ))}
                     
-                    <ForumCard name={'Group Name1'}/>
-                    <ForumCard name={'Group Name2'}/>
-                    <ForumCard name={'Group Name3'}/>
-                    <ForumCard name={'Group Name4'}/>
+                    {/* <ForumCard name={'Group Name1'} />
+                    <ForumCard name={'Group Name2'} />
+                    <ForumCard name={'Group Name3'} />
+                    <ForumCard name={'Group Name4'} /> */}
 
                 </Layout>
             ) : role === 'MODERATOR' ? (
@@ -78,29 +84,29 @@ function Home() {
                     <Link to='/createforum' >
                         <button className='create-post'> Create Forum</button>
                     </Link>
-                    <Link to='/deleteforum' >
+                    {/* <Link to='/deleteforum' >
                         <button className='create-post'> Delete Forum</button>
-                    </Link>
+                    </Link> */}
                     <Link to='/deleteforum' >
                         <button className='create-post'> See Flags</button>
                     </Link>
                     <hr />
 
-                    {/* {groups.map(post => ( <ForumCard name={post.name} /> ))} */}
-                    
-                    <ForumCard name={'Group Name1'}/>
-                    <ForumCard name={'Group Name2'}/>
-                    <ForumCard name={'Group Name3'}/>
-                    <ForumCard name={'Group Name4'}/>
+                    {groups.map(forum => ( <ForumCard name={forum.name} /> ))}
+                    {/* <ForumCard name={'Group Name1'} />
+                    <ForumCard name={'Group Name2'} />
+                    <ForumCard name={'Group Name3'} />
+                    <ForumCard name={'Group Name4'} /> */}
                 </ModeratorLayout>
             ) : (
                 <SeniorDoctorLayout>
                     <h2>Forums</h2>
                     <hr />
-                    <ForumCard name={'Group Name1'}/>
-                    <ForumCard name={'Group Name2'}/>
-                    <ForumCard name={'Group Name3'}/>
-                    <ForumCard name={'Group Name4'}/>
+                    {groups.map(forum => ( <ForumCard name={forum.name} /> ))}
+                    {/* <ForumCard name={'Group Name1'} />
+                    <ForumCard name={'Group Name2'} />
+                    <ForumCard name={'Group Name3'} />
+                    <ForumCard name={'Group Name4'} /> */}
 
                 </SeniorDoctorLayout>
             )}
