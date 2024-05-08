@@ -3,7 +3,7 @@ import axios from 'axios'
 import Layout from '../../components/Layout'
 import AdminLayout from '../../components/AdminLayout';
 import ModeratorLayout from '../../components/ModeratorLayout'
-import SeniorDoctorLayout from '../../components/Layout'
+import SeniorDoctorLayout from '../../components/SrDoctorLayout'
 import { useState } from 'react';
 import PostCard from '../../components/PostCard'
 import { Link } from 'react-router-dom';
