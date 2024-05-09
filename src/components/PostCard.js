@@ -3,10 +3,10 @@ import './PostCard.css'
 import { Button,Flex } from 'antd'
 import { Link, useNavigate } from 'react-router-dom'
 
-const PostCard = ({ id, content, initialLikes }) => {
+const PostCard = ({ id, name, content, initialLikes }) => {
     const [likes, setLikes] = useState(initialLikes)
     const navigate = useNavigate()
-    const [liked, setLiked] = useState(false);
+    const [liked, setLiked] = useState(false)
 
     const handleLike = () => {
         // Toggle liked state and update likes count accordingly

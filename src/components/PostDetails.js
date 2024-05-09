@@ -6,10 +6,12 @@ import ModeratorLayout from './ModeratorLayout'
 import './PostCard.css'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import axios from 'axios'
-import { Link, useNavigate } from 'react-router-dom'
-import { url } from '../const'
+import { Link, useParams } from 'react-router-dom'
+import { url, customHeaders } from '../const'
+import toast from 'react-hot-toast'
 
-function PostDetails({ postId }) {
+function PostDetails() {
+    const { id } = useParams()
     const [role, setRole] = useState('');
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
@@ -22,26 +24,45 @@ function PostDetails({ postId }) {
     console.log('User Role: ', role)
 
     const [post, setPost] = useState(null);
+    // setPost(response.data); 
     useEffect(() => {
-        // Fetch the post details based on postId
-        const fetchPostDetails = async () => {
+        const fetchForumDetails = async () => {
             try {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${AsyncStorage.getItem('token')}`;
-                const response = await axios.post(url + `forum/${postId}`);
-                setPost(response.data); // Assuming the response contains the post details
+                axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+                // const response = await axios.get('http://localhost:8080/forum/')
+                // const token = await AsyncStorage.getItem('token')
+                const response = await axios.get(url + `/forum/` + id, {
+                    headers: customHeaders
+                });
+                console.log(response.data)
+                // setPosts(response.data.payload)
+                // console.log(posts)
+                setPost(response.data);
             } catch (error) {
-                console.error('Error fetching post details:', error);
-                // Handle error 
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    console.error('Server responded with status:', error.response.status);
+                    console.error('Response data:', error.response.data);
+                    toast.error('Server Error: ' + error.response.data.message);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    console.error('No response received:', error.request);
+                    toast.error('No response from server');
+                } else {
+                    // Something else happened while setting up the request
+                    console.error('Error setting up request:', error.message);
+                    toast.error('Error setting up request');
+                }
             }
-        };
-        fetchPostDetails();
-    }, [postId]);
-
+        }
+        fetchForumDetails();
+    }, [id]);
+    
     const handleCommentSubmit = async (e) => {
         e.preventDefault();
         try {
             // Make API call to submit the comment
-            const response = await axios.post(url + `forum/${postId}/comments`, { comment: newComment });
+            const response = await axios.post(url + `forum/${id}/comments`, { comment: newComment });
             setComments([...comments, response.data]); // Add the new comment to the state
             setNewComment(''); // Clear the input field
         } catch (error) {
@@ -52,7 +73,7 @@ function PostDetails({ postId }) {
 
     if (!post) {
         return (
-            <SeniorDoctorLayout>
+            <Layout>
                 <Link to="/deletepost" >
                     <button className='create-post'>Delete Post</button>
                 </Link>
@@ -63,7 +84,7 @@ function PostDetails({ postId }) {
 
                 <hr />
                 Loading ...
-                <h2> {postId} </h2>
+                <h2> {id} </h2>
                 <hr />
                 <div className="actions">
                     <div className="icon-container">
@@ -102,7 +123,7 @@ function PostDetails({ postId }) {
                         <button type="submit">Add Comment</button>
                     </form>
                 </div>
-            </SeniorDoctorLayout>
+            </Layout>
         );
     }
 
@@ -112,70 +133,187 @@ function PostDetails({ postId }) {
                 <AdminLayout>
                     <button className='create-post'>Create Post</button>
                     <hr />
-                    <h2>{post.text}</h2>
+                    <h2> {id} </h2>
                     <hr />
-                    <p>{post.name}</p>
+                    <div className="actions">
+                        <div className="icon-container">
+                            <div className={`icon-left`}>
+                                <i className="ri-heart-line"></i>
+                                <span className='like'> Like </span>
+                            </div>
+                            <div className="icon-center">
+                                <i className="ri-chat-4-line"></i>
+                                <span className='comment'> Comments </span>
+                            </div>
+                            <div className="icon-right">
+                                <i className="ri-flag-2-line"></i>
+                                <span>   Report   </span>
+                            </div>
+                        </div>
+                    </div>
                     <hr />
-                    <i className="ri-heart-line">
-                        <span>{post.likes} Likes</span>
-                    </i>
-                    <i className="ri-chat-4-line">
-                        <span className='comment'> Comments</span>
-                    </i>
+
+                    <div className="comments-section">
+                        <h3>Comments</h3>
+                        <ul className="comments-list">
+                            {comments.map((comment, index) => (
+                                // have to show comments 
+                                <li key={index}>{comment.text}</li>
+                            ))}
+                        </ul>
+                        {/* Add Comment Form */}
+                        <form onSubmit={handleCommentSubmit}>
+                            <textarea
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                                placeholder="Write your comment..."
+                                required
+                            ></textarea>
+                            <button type="submit">Add Comment</button>
+                        </form>
+                    </div>
                 </AdminLayout>
             ) : role === 'DOCTOR' ? (
                 <Layout>
                     <button className='create-post'>Create Post</button>
                     <hr />
-                    <h2>{post.text}</h2>
+                    <h2> {id} </h2>
                     <hr />
-                    <p>{post.name}</p>
+                    <div className="actions">
+                        <div className="icon-container">
+                            <div className={`icon-left`}>
+                                <i className="ri-heart-line"></i>
+                                <span className='like'> Like </span>
+                            </div>
+                            <div className="icon-center">
+                                <i className="ri-chat-4-line"></i>
+                                <span className='comment'> Comments </span>
+                            </div>
+                            <div className="icon-right">
+                                <i className="ri-flag-2-line"></i>
+                                <span>   Report   </span>
+                            </div>
+                        </div>
+                    </div>
                     <hr />
-                    <i className="ri-heart-line">
-                        <span>{post.likes} Likes</span>
-                    </i>
-                    <i className="ri-chat-4-line">
-                        <span className='comment'> Comments</span>
-                    </i>                </Layout>
+
+                    <div className="comments-section">
+                        <h3>Comments</h3>
+                        <ul className="comments-list">
+                            {comments.map((comment, index) => (
+                                // have to show comments 
+                                <li key={index}>{comment.text}</li>
+                            ))}
+                        </ul>
+                        {/* Add Comment Form */}
+                        <form onSubmit={handleCommentSubmit}>
+                            <textarea
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                                placeholder="Write your comment..."
+                                required
+                            ></textarea>
+                            <button type="submit">Add Comment</button>
+                        </form>
+                    </div>
+                </Layout>
             ) : role === 'MODERATOR' ? (
                 <ModeratorLayout>
                     <button className='create-post'>Create Post</button>
                     <hr />
-                    <h2>{post.text}</h2>
+                    <h2> {id} </h2>
                     <hr />
-                    <p>{post.name}</p>
+                    <div className="actions">
+                        <div className="icon-container">
+                            <div className={`icon-left`}>
+                                <i className="ri-heart-line"></i>
+                                <span className='like'> Like </span>
+                            </div>
+                            <div className="icon-center">
+                                <i className="ri-chat-4-line"></i>
+                                <span className='comment'> Comments </span>
+                            </div>
+                            <div className="icon-right">
+                                <i className="ri-flag-2-line"></i>
+                                <span>   Report   </span>
+                            </div>
+                        </div>
+                    </div>
                     <hr />
-                    <i className="ri-heart-line">
-                        <span>{post.likes} Likes</span>
-                    </i>
-                    <i className="ri-chat-4-line">
-                        <span className='comment'> Comments</span>
-                    </i>
+
+                    <div className="comments-section">
+                        <h3>Comments</h3>
+                        <ul className="comments-list">
+                            {comments.map((comment, index) => (
+                                // have to show comments 
+                                <li key={index}>{comment.text}</li>
+                            ))}
+                        </ul>
+                        {/* Add Comment Form */}
+                        <form onSubmit={handleCommentSubmit}>
+                            <textarea
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                                placeholder="Write your comment..."
+                                required
+                            ></textarea>
+                            <button type="submit">Add Comment</button>
+                        </form>
+                    </div>
                 </ModeratorLayout>
             ) : (
                 <SeniorDoctorLayout>
                     <button className='create-post'>Create Post</button>
                     <hr />
-                    <h2>{post.text}</h2>
+                    <h2> {id} </h2>
                     <hr />
-                    <p>{post.name}</p>
+                    <div className="actions">
+                        <div className="icon-container">
+                            <div className={`icon-left`}>
+                                <i className="ri-heart-line"></i>
+                                <span className='like'> Like </span>
+                            </div>
+                            <div className="icon-center">
+                                <i className="ri-chat-4-line"></i>
+                                <span className='comment'> Comments </span>
+                            </div>
+                            <div className="icon-right">
+                                <i className="ri-flag-2-line"></i>
+                                <span>   Report   </span>
+                            </div>
+                        </div>
+                    </div>
                     <hr />
-                    <i className="ri-heart-line">
-                        <span>{post.likes} Likes</span>
-                    </i>
-                    <i className="ri-chat-4-line">
-                        <span className='comment'> Comments</span>
-                    </i>
+
+                    <div className="comments-section">
+                        <h3>Comments</h3>
+                        <ul className="comments-list">
+                            {comments.map((comment, index) => (
+                                // have to show comments 
+                                <li key={index}>{comment.text}</li>
+                            ))}
+                        </ul>
+                        {/* Add Comment Form */}
+                        <form onSubmit={handleCommentSubmit}>
+                            <textarea
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                                placeholder="Write your comment..."
+                                required
+                            ></textarea>
+                            <button type="submit">Add Comment</button>
+                        </form>
+                    </div>
                 </SeniorDoctorLayout>
             )}
-            <div className="comments-section">
+            {/* <div className="comments-section">
                 <h3>Comments</h3>
                 <ul className="comments-list">
                     {comments.map((comment, index) => (
                         <li key={index}>{comment.text}</li>
                     ))}
                 </ul>
-                {/* Add Comment Form */}
+                
                 <form onSubmit={handleCommentSubmit}>
                     <textarea
                         value={newComment}
@@ -185,7 +323,7 @@ function PostDetails({ postId }) {
                     ></textarea>
                     <button type="submit">Add Comment</button>
                 </form>
-            </div>
+            </div> */}
         </>
     );
 }

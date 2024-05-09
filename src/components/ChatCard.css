@@ -22,3 +22,20 @@
 .chat-info {
     flex-grow: 1;
 }
+
+/* Chat Input Bar */
+
+.input-bar-container {
+    display: flex; /* Use flexbox */
+    align-items: center; /* Align items vertically */
+  }
+  
+  .input-bar {
+    flex: 1; /* Take remaining space */
+    margin-right: 10px; /* Add margin for spacing */
+  }
+  
+  .chat-button {
+    flex-shrink: 0; /* Prevent button from shrinking */
+  }
+  

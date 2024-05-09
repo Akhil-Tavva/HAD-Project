@@ -7,7 +7,7 @@ const ForumCard = ({ name }) => {
     const handleGroupCardClick = () => {
         onForumClick(name);
     };
-    const onForumClick = (name) => {
+    const onForumClick = (name) => { 
         navigate(`/forum/${name}`)
     };
 
