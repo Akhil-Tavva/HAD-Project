@@ -130,8 +130,11 @@ function Chats() {
                                     ))}
                                 </div>
                             )}
-                            <ChatInputBar className='chat-input-bar' onSendMessage={handleSendMessage} />
+                            <div className='footer'>
+                                <ChatInputBar onSendMessage={handleSendMessage} />
+                            </div>                        
                         </div>
+                        
                     </div>
                 </Layout>
             ) : (

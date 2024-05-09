@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './ChatCard.css';
 
 const ChatInputBar = ({ onSendMessage }) => {
     const [message, setMessage] = useState('');
@@ -15,14 +16,15 @@ const ChatInputBar = ({ onSendMessage }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="input-bar">
+        <form onSubmit={handleSubmit} className="input-bar-container">
             <input
                 type="text"
                 value={message}
                 onChange={handleMessageChange}
+                className='input-bar'
                 placeholder="Type a message..."
             />
-            <button type="submit">Send</button>
+            <button type="submit" className='chat-button'>Send</button>
         </form>
     );
 };
