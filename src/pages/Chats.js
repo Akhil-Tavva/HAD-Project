@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import Layout from '../components/Layout'
 import SrLayout from '../components/SrDoctorLayout';
 import './Chats.css'
-import { url } from '../const';
+import { customHeaders, url } from '../const';
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import ChatInputBar from '../components/ChatInputBar'; // Import the ChatInputBar component
 
+// accepted friends chats
+// 
 function Chats() {
-    const [chats, setChats] = useState([]);
+    const [userIdList, setUserIdList] = useState([]);
+    const [userNameList, setUserNameList] = useState([]);
     const [selectedChat, setSelectedChat] = useState(null)
     const [role, setRole] = useState('')
     const Userdetails = AsyncStorage.getItem('Role');
@@ -24,16 +27,67 @@ function Chats() {
         const fetchData = async () => {
             try {
                 // Fetch chat data from API
-                const response = await axios.get(url + '/api/chat');
-                setChats(response.data.payload);
+                axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+                const response = await axios.get(url + '/api/helper/accepted', {
+                    headers: customHeaders
+                });
+                console.log(response.data)
+                // setGroups(response.data.payload)
+                response.headers = JSON.parse(JSON.stringify(response));
+                setUserIdList(response.data.payload);
+                // console.log('User Id List: ', userIdList)
             } catch (error) {
-                handleFetchError(error);
+                if (error.response) {
+                    // The request was made and the server responded with a status code
+                    console.error('Server responded with status:', error.response.status);
+                    console.error('Response data:', error.response.data);
+                    toast.error('Server Error: ' + error.response.data.message);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    console.error('No response received:', error.request);
+                    toast.error('No response from server');
+                } else {
+                    // Something else happened while setting up the request
+                    console.error('Error setting up request:', error.message);
+                    toast.error('Error setting up request');
+                }
             }
-        };
+            
+            userIdList.forEach(async userId => {
+                // Set authorization header for each request
+                axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+                try {
+                    // Make the Axios GET request for each user ID
+                    const response = await axios.get(url+'/auth/specific', userId, {
+                        headers: customHeaders
+                    });
+                    console.log('Response for user ID', userId, ':', response.data);
+                    setUserNameList(prevList => [...prevList, response.data.payload]);
+                    // console.log('User Name List: ', userNameList)
+                } catch (error) {
+                    if (error.response) {
+                        // The request was made and the server responded with a status code
+                        console.error('Server responded with status:', error.response.status);
+                        console.error('Response data:', error.response.data);
+                        toast.error('Server Error: ' + error.response.data.message);
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.error('No response received:', error.request);
+                        toast.error('No response from server');
+                    } else {
+                        // Something else happened while setting up the request
+                        console.error('Error setting up request:', error.message);
+                        toast.error('Error setting up request');
+                    }
+                }
+            });
 
+        };
         fetchData();
         getUserRole();
-    }, []);
+        // console.log('User Id List: ', userIdList)
+        // console.log('User Name List: ',userNameList)
+    }, [userNameList]);
 
     const handleFetchError = (error) => {
         if (error.response) {
@@ -112,10 +166,16 @@ function Chats() {
                 <Layout>
                     <div className="chat-container">
                         <div className="chat-list">
-                            {chatData.map(chat => (
+                            {/* {chatData.map(chat => (
                                 <div key={chat.id} className="chat-card" onClick={() => handleChatSelect(chat)}>
                                     <p>{chat.name}</p>
                                 </div>
+                            ))} */}
+                            {userNameList.map(name => (
+                                <div className='chat-card'>
+                                    <p> {name}</p>
+                                </div>
+
                             ))}
                         </div>
                         <div className="chat-details">
@@ -132,9 +192,9 @@ function Chats() {
                             )}
                             <div className='footer'>
                                 <ChatInputBar onSendMessage={handleSendMessage} />
-                            </div>                        
+                            </div>
                         </div>
-                        
+
                     </div>
                 </Layout>
             ) : (

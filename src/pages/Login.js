@@ -26,10 +26,13 @@ function Login() {
       } else if (selectedRole === 'admin') {
         console.log("This is admin")
         response = await axios.post(url + '/auth/admin-login', values);
-      } else {
+      } else if (selectedRole === 'doctor') {
         console.log("This is doctor")
-        // Default login for other roles
         response = await axios.post(url + '/auth/doctor-login', values);
+      } else {
+        console.log("This is senior doctor")
+        // Default login for other roles
+        response = await axios.post(url + '/auth/senior-login', values);
       }
 
       dispatch(hideLoading());
@@ -65,10 +68,11 @@ function Login() {
         <h1 className='card-title'>WELCOME</h1>
         <Form layout='vertical' onFinish={onFinish}>
           <Form.Item label='Role'>
-            <Select defaultValue='user' onChange={handleRoleChange}>
+            <Select defaultValue='doctor' onChange={handleRoleChange}>
               <Option value='admin'>Admin</Option>
               <Option value='moderator'>Moderator</Option>
-              <Option value='user'>User</Option>
+              <Option value='doctor'>Doctor</Option>
+              <Option value='senior-doctor'>Senior Doctor</Option>
               {/* Add more options as needed */}
             </Select>
           </Form.Item>
