@@ -27,7 +27,7 @@ function Home() {
             const response = await axios.get(url + '/forum/', {
                 headers: customHeaders
             });
-            console.log(response)
+            console.log(response.data)
             setGroups(response.data.payload)
             console.log('Groups: ',groups)
         } catch (error) {
@@ -71,7 +71,7 @@ function Home() {
                     <ForumCard name={'Group Name1'} /> */}
                 </AdminLayout>
             ) : role === 'DOCTOR' ? (
-                <Layout>
+                <Layout> 
                     <h2>Forums</h2>
                     <hr />
 
@@ -90,9 +90,9 @@ function Home() {
                     {/* <Link to='/deleteforum' >
                         <button className='create-post'> Delete Forum</button>
                     </Link> */}
-                    <Link to='/deleteforum' >
+                    {/* <Link to='/deleteforum' >
                         <button className='create-post'> See Flags</button>
-                    </Link>
+                    </Link> */}
                     <hr />
 
                     {groups.map(forum => ( <ForumCard name={forum.name} /> ))}

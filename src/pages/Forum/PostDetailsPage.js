@@ -7,7 +7,7 @@ function PostDetailsPage() {
     // Fetch the post details based on postId, you can use Redux, Axios, or any other method
     console.log(postId)
     return (
-        <div>
+        <div> 
             {/* <h2>Post Details</h2> */}
             <PostDetails postId={postId} />
         </div>

@@ -20,7 +20,8 @@ import YourPosts from "./pages/Forum/YourPosts";
 import ForgetPassword from './pages/ForgetPassword'
 import UpdatePassword from './pages/UpdatePassword'
 import CreateForum from "./pages/Forum/CreateForum";
-import PostDetailsPage from "./pages/Forum/PostDetailsPage";
+// import PostDetails from "./pages/Forum/PostDetails";
+import PostDetails from "./components/PostDetails";
 import Resources from "./pages/Doctor/Resources";
 import DoctorsList from "./pages/Sr Doctor/DoctorList";
 import UsersList from "./pages/Sr Doctor/UsersList";
@@ -55,7 +56,7 @@ function App() {
         <Route path="/chats" element={<Chats />}/>
         <Route path="/newpost" element={<CreatePost />}/>
         <Route path="/createforum" element={<CreateForum />}/>
-        <Route path="/post/:postId" element={<PostDetailsPage />}/>
+        <Route path="/post/:id" element={<PostDetails />}/>
         <Route path="/yourposts" element={<YourPosts />}/>
         <Route path="/resources" element={<Resources />}/>
         <Route path="/doctors-list" element={<DoctorsList />}/>

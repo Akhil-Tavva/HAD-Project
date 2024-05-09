@@ -35,84 +35,90 @@
 } */
 
 .chat-container {
-  display: flex;
-  height: 100vh;
-}
-
-.chat-list {
-  flex: 0 0 20%; /* Reduced person card width */
-  max-width: 250px;
-  height: 100%;
-  overflow-y: auto;
-  border-right: 1px solid #ccc;
-}
-
-.chat-card {
-  padding: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.chat-card:hover {
-  background-color: #f0f0f0;
-}
-
-.chat-card p {
-  margin: 0;
-}
-
-.chat-details {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-}
-
-.message-container {
-  margin-bottom: 10px; /* Add vertical spacing between messages */
-  overflow: auto; /* Ensure overflow behaves correctly */
-}
-
-.sender,
-.receiver {
-  display: block; /* Ensure each message is displayed on a new line */
-  max-width: 70%; /* Increased chat window size */
-  word-wrap: break-word;
-  padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 5px; /* Add vertical spacing between messages of sender and receiver */
-}
-
-.sender {
-  float: right;
-  clear: both; /* Ensure sender messages are displayed one after another */
-  background-color: #DCF8C6;
-}
-
-.receiver {
-float: left;
-clear: both; /* Ensure receiver messages are displayed one after another */
-background-color: #F0F0F0;
-}
-
-
-/* .chat-details {
-  display: flex;
-  flex-direction: column;
-  height: 100vh; 
-} */
-
-/* .message-container {
-} */
-
+    display: flex;
+    height: 100vh;
+  }
+  
+  .chat-list {
+    flex: 0 0 20%; /* Reduced person card width */
+    max-width: 250px;
+    height: 100%;
+    overflow-y: auto;
+    border-right: 1px solid #ccc;
+  }
+  
+  .chat-card {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .chat-card:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .chat-card p {
+    margin: 0;
+  }
+  
+  .chat-details {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .message-container {
+    margin-bottom: 10px; /* Add vertical spacing between messages */
+    overflow: auto; /* Ensure overflow behaves correctly */
+  }
+  
+  .sender,
+  .receiver {
+    display: block; /* Ensure each message is displayed on a new line */
+    max-width: 70%; /* Increased chat window size */
+    word-wrap: break-word;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 5px; /* Add vertical spacing between messages of sender and receiver */
+  }
+  
+  .sender {
+    float: right;
+    clear: both; /* Ensure sender messages are displayed one after another */
+    background-color: #DCF8C6;
+  }
+  
+  .receiver {
+    float: left;
+    clear: both; /* Ensure receiver messages are displayed one after another */
+    background-color: #F0F0F0;
+  }
+  
+  /* CSS for ChatInputBar component */
 .chat-input-bar {
-margin-top: auto; /* Push the input bar to the bottom */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f4f4f4;
+  padding: 10px;
+  display: flex;
+  align-items: center;
 }
 
-/* CSS */
-.footer {
-position: fixed;
-bottom: 0;
-width: 60%;
-padding: 10px; /* Optional: Padding */
-text-align: center; /* Optional: Center align content */
+.chat-input-bar input {
+  flex: 1;
+  margin-right: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.chat-input-bar button {
+  padding: 8px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }

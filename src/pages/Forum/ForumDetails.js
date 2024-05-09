@@ -9,10 +9,9 @@ import { Link, useParams } from 'react-router-dom'
 import '../../components/PostCard.css'
 // import { hideLoading, showLoading } from '../../redux/alertsSlice'
 // import { useDispatch } from 'react-redux'
-import toast from 'react-hot-toast'
+import toast from 'react-hot-toast' 
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { url, customHeaders } from '../../const'
-
 
 function ForumDetails() {
     const { name } = useParams()
@@ -40,10 +39,7 @@ function ForumDetails() {
                 // const response = await axios.get('http://localhost:8080/forum/')
                 // const token = await AsyncStorage.getItem('token')
                 const response = await axios.get(url + `/forum/` + name, {
-                    headers: {
-                        // 'Authorization': `Bearer ${token}`,
-                        customHeaders,
-                    }
+                    headers: customHeaders
                 });
                 console.log(response.data)
                 setPosts(response.data.payload)
@@ -129,9 +125,9 @@ function ForumDetails() {
                     </Link>
                     <hr />
                     <div className="post-list">
-                        {postData.map(post => (
+                        {posts.map(post => (
                             <PostCard
-                                key={post.id}
+                                id={post.id}
                                 name={post.name}
                                 content={post.content}
                                 initialLikes={post.like}
@@ -155,7 +151,11 @@ function ForumDetails() {
                         <button className='create-post'>Your Posts</button>
                     </Link>
 
-                    <Link to="/newpost" addPost={addPost} >
+                    <Link to='/deleteforum' >
+                        <button className='create-post'> See Flags</button>
+                    </Link>
+
+                    <Link to="/newpost">
                         <button className='create-post'>delete forum </button>
                     </Link>
                     <h2> {name} </h2>
@@ -163,7 +163,7 @@ function ForumDetails() {
                     <div className="post-list">
                         {postData.map(post => (
                             <PostCard
-                                key={post.id}
+                                id={post.id}
                                 name={post.name}
                                 content={post.content}
                                 initialLikes={post.like}
@@ -190,7 +190,7 @@ function ForumDetails() {
                     <div className="post-list">
                         {postData.map(post => (
                             <PostCard
-                                key={post.id}
+                                id={post.id}
                                 name={post.name}
                                 content={post.content}
                                 initialLikes={post.like}

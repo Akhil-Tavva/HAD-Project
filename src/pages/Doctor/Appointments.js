@@ -23,7 +23,8 @@ function Appointments() {
         try {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
             // const response = await axios.get('http://localhost:8080/forum/')
-            const response = await axios.get(url + '/forum/', {
+            // have to update endpoint
+            const response = await axios.get(url + '/', {
                 headers: customHeaders
             });
             toast.success(response.data.message)
@@ -53,10 +54,6 @@ function Appointments() {
     }, [])
 
     const columns1 = [
-        // {
-        //     title: 'Id',
-        //     dataIndex: '_id'
-        // },
         {
             title: 'Name',
             dataIndex: 'name',
@@ -66,15 +63,6 @@ function Appointments() {
                 </span>
             ),
         },
-        // {
-        //     title: 'Phone',
-        //     dataIndex: 'phoneNumber',
-        //     render: (text, record) => (
-        //         <span>
-        //             {record.doctorInfo.phoneNumber} 
-        //         </span>
-        //     ),
-        // },
         {
             title: 'Date & Time',
             dataIndex: 'createdAt',
@@ -142,13 +130,11 @@ function Appointments() {
                 <Layout>
                     <h1 className='page-header'> </h1>
                     <Table columns={columns1} dataSource={appointments}> </Table>
-
                 </Layout>
             ) : (
                 <SrLayout>
                     <h1 className='page-header'> </h1>
                     <Table columns={columns2} dataSource={appointments}> </Table>
-
                 </SrLayout>
             )}
         </>
