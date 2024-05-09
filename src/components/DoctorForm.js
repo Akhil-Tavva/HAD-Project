@@ -46,7 +46,7 @@ function DoctorForm() {
                         <Input placeholder="Last Name" />
                     </Form.Item>
                 </Col>
-                <Col span={8} xs={24} sm={24} lg={8}>
+                {/* <Col span={8} xs={24} sm={24} lg={8}>
                     <Form.Item 
                         required
                         label = "Phone Number"
@@ -55,7 +55,7 @@ function DoctorForm() {
                     >
                         <Input placeholder="Phone Number" />
                     </Form.Item>
-                </Col>
+                </Col> */}
                 <Col span={8} xs={24} sm={24} lg={8}>
                     <Form.Item 
                         required
