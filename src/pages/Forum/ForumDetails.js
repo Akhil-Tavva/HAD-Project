@@ -99,7 +99,7 @@ function ForumDetails() {
                     <hr />
                     <div className="post-list">
                         {postData.map(post => (
-                            <PostCard
+                            <PostCard 
                                 id={post.id}
                                 name={post.name}
                                 content={post.content}
@@ -147,17 +147,17 @@ function ForumDetails() {
                     <Link to="/newpost" addPost={addPost} >
                         <button className='create-post'>Create Post</button>
                     </Link>
-                    <Link to="/yourposts" >
+                    {/* <Link to="/yourposts" >
                         <button className='create-post'>Your Posts</button>
-                    </Link>
+                    </Link> */}
 
-                    <Link to='/deleteforum' >
+                    <Link to='/flags' >
                         <button className='create-post'> See Flags</button>
                     </Link>
 
-                    <Link to="/newpost">
+                    {/* <Link to="/de">
                         <button className='create-post'>delete forum </button>
-                    </Link>
+                    </Link> */}
                     <h2> {name} </h2>
                     <hr />
                     <div className="post-list">

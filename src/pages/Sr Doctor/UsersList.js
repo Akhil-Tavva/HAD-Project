@@ -119,7 +119,7 @@ function UsersList() {
 
     const sampleData = [
         {
-            "name": "John Doe",
+            "name": "Birla37",
             "email": "john@example.com",
             "chat-review": "Link to chat review",
             "block-by-users-start": 2,

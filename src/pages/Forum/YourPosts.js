@@ -37,9 +37,7 @@ function YourPost() {
                     <hr />
 
                     <div className="app">
-                        <PostCard title="Example Forum Post" initialLikes={10} initialComments={5} />
-                        <PostCard title=" Post 2" initialLikes={11} initialComments={6} />
-                        <PostCard title=" Post 3" initialLikes={9} initialComments={4} />
+                        <PostCard content={'Hello there'}/>
                     </div>
                 </Layout>
             ) : role === 'MODERATOR' ? (

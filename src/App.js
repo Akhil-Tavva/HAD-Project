@@ -26,7 +26,7 @@ import Resources from "./pages/Doctor/Resources";
 import DoctorsList from "./pages/Sr Doctor/DoctorList";
 import UsersList from "./pages/Sr Doctor/UsersList";
 import CreateModerator from "./pages/Moderator/Create Moderator";
-
+import Flags from './pages/Forum/Flags'
 function App() {
   const {loading} = useSelector(state => state.alerts); // change intial state loading as true in alertsSlice.js file to get spinner
   return (
@@ -62,6 +62,7 @@ function App() {
         <Route path="/doctors-list" element={<DoctorsList />}/>
         <Route path="/users-list" element={<UsersList />}/>
         <Route path="/create-moderator" element={<CreateModerator />}/>
+        <Route path="/flags" element={<Flags />}/>
 
       </Routes>
     </BrowserRouter>

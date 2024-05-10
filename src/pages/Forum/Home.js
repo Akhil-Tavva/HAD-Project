@@ -17,7 +17,7 @@ function Home() {
     const [groups, setGroups] = useState([])
 
     const getData = async () => {
-        try {
+        try { 
             // const token1 = await AsyncStorage.getItem("token");
             // console.log("Async " +token1)
             // const token2 = await localStorage.getItem('token')
